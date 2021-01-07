@@ -1,0 +1,40 @@
+<!-- h2>Correlated Constraint violation</h2>
+Pas encore implementé -->
+
+<div class="container" style="padding: 1em">
+    <div class="row">		
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class = "pad">
+                <div class="titre">Parameters</div>
+                <div class="separator"></div>
+                <div style="width: 100%;height: 5em; overflow-y:scroll; padding: 0.5em;" id="constraints_loaded"></div>
+                <div style="width: 100px; margin: auto;"> <button onclick="changeConstraints()" class="btn btn-primary">Show Distribution</button> </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">		
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class = "pad">
+                <div class="titre">Proportion of Violations by Tuple</div>
+                <div class="separator"></div>
+                <div id="tuple_proprtions_vio_">
+                    <canvas id="tuple_proprtions_vio"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class = "pad">
+                <div class="titre">Number of Violations by Tuple</div>
+                <div class="separator"></div>
+                <div id="tuple_number_vio_">
+                    <canvas id="tuple_number_vio" ></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

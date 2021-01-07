@@ -1,0 +1,120 @@
+<div class="container">
+
+    <div class="row pad" style="margin: 0.5em; padding-bottom: 10px;">
+        
+        <div style="margin-left: 0.25em; font-size: 1.5em; font-weight: bold; font-family: sans-serif;">Parameters</div>
+        <div class="separator"></div>
+
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div style="border: 1px solid black; padding: 0.5em;">
+                <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Constraints</div>
+                <div id="constraints_to_check" style="height: 5em; width: 100%; overflow-y:scroll;">
+            
+                </div>
+            </div>
+            <div style="padding-left:5px;padding-right:5px; margin-left: 8px; position: absolute; margin-top:-10px;background: white;">Conjunctive Query</div>
+            <textarea id="query" style="width: 100%; height: 9em; resize: none;"></textarea>
+        </div>
+        
+
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            
+            <div style="border: 1px solid black; padding: 0.5em;">
+                <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Measures</div>
+                <div style="margin-top: 5px;">                       
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CBM" name="measures" value="CBM" checked></input>
+                        <label for="CBM">CBM</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CBS" name="measures" value="CBS"></input>
+                        <label for="CBS">CBS</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CSM_min" name="measures" value="CSM_min"></input>
+                        <label for="CSM_min">CSM_min</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CSS_min" name="measures" value="CSS_min"></input>
+                        <label for="CSS_min">CSS_min</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="CSM_max" name="measures" value="CSM_max"></input>
+                        <label for="CSM_max" style="margin-right: 10px;">CSM_max</label>
+                    </div>
+                    <div style="display: inline;">
+                        <input type="radio" id="CSS_max" name="measures" value="CSS_max"></input>
+                        <label for="CSS_max">CSS_max</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="border: 1px solid black; padding: 0.5em;">
+                <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Filtering</div>
+                <div style="margin-top: 5px;">
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="top_k" name="operateurs" value="top-k" onchange="top_k()" checked></input>
+                        <label for="top_k">top-k</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="Threshold" name="operateurs" value="threshold" onchange="threshold()"></input>
+                        <label for="Threshold">Threshold</label>
+                    </div>
+                    <div style="display: inline;">
+                        <input type="radio" id="all" name="operateurs" value="all" onchange="all_()"></input>
+                        <label for="all">all</label>
+                    </div>
+                </div>
+                <input type="text" class="form-control" placeholder="Filter value" id="filter_value"></input>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-sm-6 col-xs-6" style="width: 100px; margin: auto;">
+            <button class="btn btn-primary" onclick="validQuery()" style="margin-top: 10px;">Valid</button>
+        </div>
+        
+    </div>
+
+
+
+    <div class="row">
+        
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="pad" style="margin: 0.5em; padding: 1em;">
+                <div style="border: 1px solid black; padding: 0.5em;">
+                    <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Dist.Vio.Sub.Cons</div>
+                    <div id="simple_statistics_subset_constraints_">
+                        <canvas id="simple_statistics_subset_constraints"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="pad" style="margin: 0.5em; padding: 1em;">
+                <div style="border: 1px solid black; padding: 0.5em;">
+                    <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Distr. Viol</div>
+                    <div id="simple_statistics_by_constraint_" >
+                        <canvas id="simple_statistics_by_constraint"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!-- Data vsulatisation -->
+    <div class="row">
+        <div class="pad" style="margin: 1.4em; padding: 1em;">
+            <div style="margin-left: 0.25em; font-size: 1.5em; font-weight: bold; font-family: sans-serif;">Result</div>
+            <div class="separator"></div>          
+            <div style="width: 100%; height: 20em; overflow: scroll; margin:0.5em; padding: 1em;" id="result">
+                <!--tableau de result-->
+            </div>
+            <!--div style="width: 100px; margin: auto;"> <button class="btn btn-primary" onclick="giveNext()">Next</button> </div-->
+        </div>
+    </div>
+
+</div>
