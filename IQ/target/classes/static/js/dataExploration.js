@@ -55,8 +55,6 @@ function getTuplesProportion(vc){
     fetch(url, param).then(e => e.json()).then(e => {
         display_tuple_proprtions_vio(e.X, e.Y);
         display_tuple_number_vio(e.X, e.Y2);
-
-
     }).catch(e => alert(e));
 }
 
@@ -110,12 +108,17 @@ function display_tuple_number_vio(X, Y){
                 }
             },
             scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                },
-                type: 'logarithmic'
-            }]
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    type: 'logarithmic'
+                }],
+                xAxes: [{
+                    ticks: {
+                        display: false
+                    }
+                }]
             }
     }
     });	    
@@ -146,12 +149,17 @@ function display_tuple_proprtions_vio(X, Y){
                 }
             },
             scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                },
-                type: 'logarithmic'
-            }]
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    type: 'logarithmic'
+                }],
+                xAxes: [{
+                    ticks: {
+                        display: false
+                    }
+                }]
             }
     }
     });	    

@@ -1,9 +1,11 @@
 <div id="part_menu">
-    <div style="padding-top: 0.25em;padding-bottom: 5px; text-align: center; font-weight: bold; font-family: sans-serif; font-size:1.5em;"> IaQ System </div>
+    <div style="padding-top: 0.25em;padding-bottom: 5px; text-align: center; font-weight: bold; font-family: sans-serif; font-size:1.5em;"> INCA System </div>
     <div class="separator"></div>
 
     <div id="boite_message">  </div>
 
+	<div class="menu_item_" onclick="doPreprocess()" id="data_annotation"> Database Annotation</div>
+    
     <div class="menu_item_" onclick="show_database_param()" id="input_database">Input Database</div>
     <div id="param_database">
         <div>
@@ -34,7 +36,6 @@
             <button style="margin-top:0.5em;" onclick="load_database()" class="btn btn-primary mb-2">Load Database</button>
         </div>
     </div>	
-    <div class="menu_item_" onclick="doPreprocess()" id="data_annotation"> Database Annotation</div>
     <div class="menu_item_" onclick="show_profiling()" id="data_i_profiling"> Data I-Profiling</div>
     <div id="profiling_param">
         <div class="menu_item_ submenu" onclick="simpleStatistics()" id="simple_statistics_data_"> Simple Statistics </div>

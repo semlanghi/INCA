@@ -53,8 +53,12 @@
                 <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Filtering</div>
                 <div style="margin-top: 5px;">
                     <div style="margin-right: 10px; display: inline;">
-                        <input type="radio" id="top_k" name="operateurs" value="top-k" onchange="top_k()" checked></input>
-                        <label for="top_k">top-k</label>
+                        <input type="radio" id="top_k_" name="operateurs" value="top-k_" onchange="top_k()" checked></input>
+                        <label for="top_k_">top-k (INC)</label>
+                    </div>
+                    <div style="margin-right: 10px; display: inline;">
+                        <input type="radio" id="top_k" name="operateurs" value="top-k" onchange="top_k()"></input>
+                        <label for="top_k">top-k (CONS)</label>
                     </div>
                     <div style="margin-right: 10px; display: inline;">
                         <input type="radio" id="Threshold" name="operateurs" value="threshold" onchange="threshold()"></input>
@@ -69,8 +73,21 @@
             </div>
         </div>
         
-        <div class="col-md-6 col-sm-6 col-xs-6" style="width: 100px; margin: auto;">
-            <button class="btn btn-primary" onclick="validQuery()" style="margin-top: 10px;">Valid</button>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            
+            <!--div style="display: inline-block;"-->
+            	<select onchange="selectedQuery()" name="p" id="workload" class = "form-control">
+                	<option value="">--Choose a query--</option>
+				    <option value="SELECT dba_name FROM FoodInspection">Q1</option>
+				    <option value="SELECT dba_name FROM FoodInspection WHERE risk='Risk 2 (Medium)'">Q2</option>
+				    <option value="SELECT dba_name FROM FoodInspection WHERE risk<>'Risk 2 (Medium)'">Q3</option>
+                </select>
+            <!--/div-->
+		
+			<!--div style="margin-left: 10px; display: inline-block;"-->
+            	<button class="btn btn-primary" onclick="validQuery()" style="margin-top: 10px;">Valid</button> 
+            <!--/div-->
+			            
         </div>
         
     </div>
@@ -79,16 +96,6 @@
 
     <div class="row">
         
-        <div class="col-md-6 col-sm-6 col-xs-6">
-            <div class="pad" style="margin: 0.5em; padding: 1em;">
-                <div style="border: 1px solid black; padding: 0.5em;">
-                    <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Dist.Vio.Sub.Cons</div>
-                    <div id="simple_statistics_subset_constraints_">
-                        <canvas id="simple_statistics_subset_constraints"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="pad" style="margin: 0.5em; padding: 1em;">
@@ -101,6 +108,16 @@
             </div>
         </div>
 
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="pad" style="margin: 0.5em; padding: 1em;">
+                <div style="border: 1px solid black; padding: 0.5em;">
+                    <div style="padding-left:5px;padding-right:5px; margin-left: 5px; position: absolute; margin-top:-15px;background: white;">Dist.Vio.Sub.Cons</div>
+                    <div id="simple_statistics_subset_constraints_">
+                        <canvas id="simple_statistics_subset_constraints"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 

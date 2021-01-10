@@ -79,32 +79,6 @@ function selectedSource_(){
 		}
 	}
 
-
-/*	for(var i = 0; i<from.length; i++){
-		f = from[i].split(/[\s]+/)
-		var rel = '-'
-		var alea = '-'
-		var ab = true
-		for(var j=0; j<f.length; j++){
-			if (f[j]!=''){
-				if (ab){
-					rel = f[j]
-					ab = false
-				}
-				else{
-					alea = f[j]
-					break
-				}
-			}
-		}
-		if (alea!='-')
-			//attrs.add(alea+'.id')
-			attrs[alea+'.id'] = 'blue'
-		else 
-			//attrs.add(rel+'.id')
-			attrs[rel+'.id'] = 'blue'
-	}*/
-
 	var attributs = document.getElementById("attributs")
 	var attribut_to_show = document.getElementById("attribut_to_show")
 	var attribut_to_group = document.getElementById("attribut_to_group")
@@ -212,7 +186,7 @@ function exploration_by_constraint(){
 						xAxes: [{
 						stacked: true, // this should be set to make the bars stacked
 						ticks: {
-							beginAtZero: true
+							display: false
 						}
 						}],
 						yAxes: [{

@@ -142,7 +142,10 @@ function validQuery(){
 
     query = query.replaceAll("'", "\\'");
 
-    if (operator=='top-k'){
+    if (operator=='top-k' || operator=='top-k_'){
+        if (operator=='top-k_')
+            filter_value = "-"+filter_value;
+        operator='top-k';
         filter_value = parseInt(filter_value); 
         if (filter_value){
             content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+", 'selectedConstraints':"+selectedConstraints+"}"; 
@@ -236,6 +239,11 @@ function getMeasuresValue(){
 
 
 
+/*function top_k_(){
+    //alert('top k')
+    document.getElementById("filter_value").style = "display: block;";
+    document.getElementById("filter_value").placeholder = 'Filter value';
+}*/
 
 function top_k(){
     //alert('top k')
@@ -252,6 +260,15 @@ function all_(){
     document.getElementById("filter_value").style = "display: none;";
 }
 
+
+function selectedQuery(){
+	var x = document.getElementById("workload");
+	var val = x.options[x.selectedIndex].value;
+	if (val != ''){
+		var query = document.getElementById("query");
+		query.value = val;
+	}
+}
 
 
 

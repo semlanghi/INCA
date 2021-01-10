@@ -478,37 +478,26 @@ public class ProfilingImp implements ProfilingService{
 	public String gettupleProportion(String param) throws Exception {
 		JSONObject jo =  new JSONObject(param);
 		long pos = jo.getLong("constraints");
-		String rel = "SELECT tups, constr FROM vio.violations WHERE pos & "+pos+"<>0";
+		List<String> tables = Config.getTables();
+		JSONArray viosets = new JSONArray();
+		JSONArray ids = new JSONArray();
+		JSONArray violations = new JSONArray();
 		
-		Map<String, Integer> props = new HashMap<String, Integer>();
-		Map<String, Set<String>> constr = new HashMap<String, Set<String>>();
-		int all = 0;
-		ResultSet rs = Config.con.createStatement().executeQuery(rel);
-		while(rs.next()) {
-			String [] tups = rs.getString("tups").split("( )*,( )*");
-			String c = rs.getString("constr");
-			for(String tup:tups) {
-				if (!props.containsKey(tup)) {
-					props.put(tup, 0);
-					constr.put(tup, new HashSet<String>());
-				}
-				props.put(tup, props.get(tup)+1);
-				constr.get(tup).add(c);
+		for(String tab:tables) {
+			String query = "SELECT id, vioset & "+pos+", violation  FROM "+tab+" WHERE vioset & "+pos+"<> 0";
+			ResultSet s1 = Config.con.createStatement().executeQuery(query);
+			while(s1.next()) {
+				ids.put(s1.getString(1));
+				viosets.put(Long.bitCount(s1.getLong(2)));
+				violations.put(s1.getInt(3));
 			}
-			all++; 
-		}  
-		rs.close();
-		
-		List<String> X = new ArrayList<String>();
-		List<Double> Y = new ArrayList<Double>();		
-		List<Integer> Y2 = new ArrayList<Integer>();
-		
-		for(String key:props.keySet()) {  
-			X.add("\""+key+"::"+constr.get(key).toString()+"\"");
-			Y.add((all==0)?0:( (props.get(key)*1d)/(all*1d))*100 );
-			Y2.add(props.get(key));
+			s1.close();
 		}
-		return "{\"X\":"+X+", \"Y\":"+Y+", \"Y2\":"+Y2+"}";  
+		JSONObject res = new JSONObject();
+		res.put("X", ids);
+		res.put("Y2", violations);
+		res.put("Y", viosets);
+		return res.toString();
 	}    
    
 	public String gettupleViolations(String param) throws Exception {
@@ -565,8 +554,8 @@ public class ProfilingImp implements ProfilingService{
 		
 		Map<Integer, Integer> vio_dist = new HashMap<Integer, Integer>();
 		Map<Long, Integer> vio_sub = new HashMap<Long, Integer>();
-		
-		int all = 0; 
+		    
+		int all = 0;   
 		
 		while(rs.next()) {
 			if ((operator.equalsIgnoreCase("all") && j<=limit)||(!operator.equalsIgnoreCase("all"))) {
