@@ -33,12 +33,10 @@ function selectedSource(){
                         }]
                     },
                     options: {
+                    	legend: {labels: {fontColor: "black", fontStyle: "bold"}},
                         scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
+                        	yAxes: [{ticks: {beginAtZero: true, fontStyle: "bold", fontColor: "black"}}],
+                        	xAxes: [{ticks: {fontStyle: "bold", fontColor: "black"}}]
                         }
                 }
                 });

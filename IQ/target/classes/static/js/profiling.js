@@ -52,6 +52,7 @@ for(var i=0; i<novio_.length; i++){
 	if (a1==4)
 		break;
 }
+
 document.getElementById("inc_vio_").innerHTML = '<canvas id="inc_vio" height="100" width="300"></canvas>'
 var ctx = document.getElementById('inc_vio').getContext('2d');
 var chart = new Chart(ctx, {
@@ -64,7 +65,7 @@ var chart = new Chart(ctx, {
 			backgroundColor:['rgba(255, 0, 0, 0.5)', 'rgba(0,200, 100, 0.6)']
 		}]
 	},
-	options: []   
+	options: {legend: {labels: {fontColor: "black", fontStyle: "bold"}}}   
 });	  
 }).catch(error => {alert(error)});    
 }
@@ -85,12 +86,10 @@ function distributionBySubsetViolation(){
 		},
 		options: {
 			scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero: true
-				}
-			}]
-			}
+            legend: {display: false,labels:{ fontColor: "black", fontStyle: "bold"}},
+			yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
+            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+            }
 		} 
 	});
 	}).catch(er => {alert(er)});
@@ -103,7 +102,6 @@ function distributionviolations(){
 		var ctx2 = document.getElementById('dist_vio').getContext('2d');
 		X = e["Violations"]
 		Y = e["percent"]
-		//push
 		var chart2 = new Chart(ctx2, {
 			type: 'bar',
 			data: {
@@ -116,12 +114,10 @@ function distributionviolations(){
 			},
 			options:{
 				scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-				}
+	            legend: {display: false,labels: {display: false, fontColor: "black", fontStyle: "bold"}},
+				yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
+	            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+	            }
 			}
 		});
 	}).catch(er => {});
@@ -144,13 +140,11 @@ function distributionByConstraints(){
 			},
 			options: {
 				scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-				}
-		}
+		            legend: {display: false,labels: { fontColor: "black", fontStyle: "bold"}},
+					yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
+		            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+	            }	
+			}
 		});	
 	}).catch(er => {alert(er)});
 }
@@ -168,14 +162,12 @@ function figsSimpleStatistics(){
 function simpleStatistics(){
 	var part = adr+"others/profiling1.html"
 	fetch(part).then(e => e.text()).then(e => {
-		
 		changeBackground("simple_statistics_data_")
-
 		var content = document.getElementById('content');
 		content.innerHTML = e;
-		figsSimpleStatistics();
 		loadConstraints();
-		//load_attribut_relations();
+		//figsSimpleStatistics();
+		//do_filter();
 	}).catch(ef => {});	
 }
 
@@ -197,7 +189,6 @@ function show_description_query(id){
 		var from_ = document.getElementById("from_dialog");
 		var where_ = document.getElementById("where_dialog");
 		
-		
 		//alert(document.getElementById("menu"));
 		//alert(doc)
 		//alert("title:"+boite_title)
@@ -206,10 +197,7 @@ function show_description_query(id){
 		boite_title.innerText = v;
 		from_.innerText = e.f;
 		where_.innerText = e.w;
-
 		doc.style.display = "block"
-
-
     }).catch(e => alert("Error: Connection failed !"));
 }
 
@@ -226,6 +214,9 @@ function loadConstraints(){
 			res += "<tr>"+"\n"+position+"\n"+id+"\n"+description+"\n"+"</tr>";
 		}
 		constraint_description.innerHTML = res;
+		
+		do_filter();
+		
 	}).catch(e => alert(e));
 }
 
@@ -279,7 +270,7 @@ function distributionviolationsProportion_(considered){
 				backgroundColor:['rgba(255, 0, 0, 0.5)', 'rgba(0,200, 100, 0.6)']
 			}]
 		},
-		options: []   
+		options: {legend: {labels: {fontColor: "black", fontStyle: "bold"}}}   
 	});	  
 	}).catch(error => {alert(error+" proportion violation")});    
 }
@@ -301,13 +292,11 @@ function distributionBySubsetViolation_(considered){
 			}]
 		},
 		options: {
-			scales: {
-			yAxes: [{
-				ticks: {
-					beginAtZero: true
-				}
-			}]
-			}
+			legend: {display: false,labels: {fontColor: "black", fontStyle: "bold"}},
+			 scales: {
+	            yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
+	            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+            }
 		} 
 	});
 	}).catch(er => {alert(er+" by subset of of constraints")});
@@ -332,13 +321,11 @@ function distributionviolations_(considered){
 				}]
 			},
 			options:{
-				scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-				}
+			   legend: {display: false,labels: {fontColor: "black", fontStyle: "bold"}},
+			   scales: {
+		            yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
+		            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+	            }				
 			}
 		});
 	}).catch(er => {});
@@ -362,14 +349,12 @@ function distributionByConstraints_(considered){
 				}]
 			},
 			options: {
+				legend: {display: false,labels: {fontColor: "black", fontStyle: "bold"}},
 				scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-				}
-		}
+		            yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
+		            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+            	}	
+			}
 		});	
 	}).catch(er => {alert(er+": by constraint")});
 }

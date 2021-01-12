@@ -160,7 +160,8 @@ public class Profiling {
 			return res; 
 		}catch(Exception e) {e.printStackTrace(); throw new DataLoadingError();}
 	}	    
-	  	
+	
+	
 	@RequestMapping(value = "/query/execution/", method = RequestMethod.POST)
 	public String query_execution(@RequestBody String param) {
 		try {
@@ -180,6 +181,7 @@ public class Profiling {
 		}catch(Exception e) {e.printStackTrace(); throw new DataLoadingError();}
 	}	 
 
+	
 	@RequestMapping(value = "/profiling/attributs/", method = RequestMethod.POST)
 	public String profiling_attributs(@RequestBody String param) {
 		try {

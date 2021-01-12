@@ -17,14 +17,9 @@ background: white;
 height: 1000em;
 }
 
-.fieldset {
+.fieldset{
   border: 1px solid #ddd;
-  /*border: 1px groove #ddd ;
-  padding: 0 1.4em 1.4em 1.4em ;*/
-  /*margin: 0 0 1.5em 0 !important;*/
   margin: 10px;
-  /*-webkit-box-shadow:  0px 0px 0px 0px #000;
-  box-shadow:  0px 0px 0px 0px #000;*/
 }
 
 .legend {
@@ -46,33 +41,15 @@ height: 1000em;
   padding: 6px;
 }
 
-/*.fielsetpartiel{
-  overflow-y:scroll;
-  height: 100%;
-}*/
-
 .inB{
   display: inline;
   margin-right: 0.5em;
 }
 
-/*
-#selectedConstraint{
-	display:none;
-}
-*/
-
-/*
-#constraints{
-	border: 1px solid black;
-}
-*/
-
-
 
 table
 {
-    border-collapse: collapse; /* Les bordures du tableau seront coll�es (plus joli) */
+    border-collapse: collapse;
     width: 100%;
     margin-top: 0.5em;
 }
@@ -125,17 +102,22 @@ text-decoration: underline dotted;
 }
 
 .scoll1{
-height: 140px;
+height: 30em;
 overflow-y:scroll;
+background:white;
 }
 
 #boite_message{
   display: none;
   border-radius: 25px;
-  /*background: #73AD21;*/
   color:  #73AD21;;
   padding: 20px;
   width: 200px;
   height: 80px;
   color: white;
 }
+
+
+
+
+

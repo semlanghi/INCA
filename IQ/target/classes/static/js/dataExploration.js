@@ -25,7 +25,7 @@ function loadConstraints_for_exploration(){
 		var res = '';
 		for (var j = 0; j < e.length; j++) {
             var val = e[j];
-            res += '<div style="display: inline-block; margin-right: 10px;"><input type="checkbox" id="'+val.id+'" value="'+val.id+'"></input><label for="'+val.id+'">'+val.id+'</label></div>';
+            res += '<div style="display: inline-block; margin-right: 10px;"><input type="checkbox" id="'+val.id+'" value="'+val.id+'"></input><label for="'+val.id+'" class="commun_text">'+val.id+'</label></div>';
 		}
 		constraints_loaded.innerHTML = res;
 	}).catch(e => alert(e));
@@ -104,19 +104,25 @@ function display_tuple_number_vio(X, Y){
             legend: {
                 display: false,
                 labels: {
-                display: false
+                display: false,
+                fontStyle: "bold",
+                fontColor: "black"
                 }
             },
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        fontStyle: "bold",
+                        fontColor: "black"
                     },
                     type: 'logarithmic'
                 }],
                 xAxes: [{
                     ticks: {
-                        display: false
+                        display: false,
+                        fontStyle: "bold",
+                        fontColor: "black"
                     }
                 }]
             }
@@ -145,19 +151,25 @@ function display_tuple_proprtions_vio(X, Y){
             legend: {
                 display: false,
                 labels: {
-                display: false
+                display: false,
+                fontStyle: "bold",
+                fontColor: "black"
                 }
             },
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        fontStyle: "bold",
+                        fontColor: "black"
                     },
                     type: 'logarithmic'
                 }],
                 xAxes: [{
                     ticks: {
-                        display: false
+                        display: false,
+                        fontColor: "black",
+                        fontStyle: "bold"
                     }
                 }]
             }

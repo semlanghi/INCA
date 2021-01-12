@@ -1,10 +1,12 @@
-/*#vio{
-  height: 100px;
-  width: 25%;
-}*/
+.commun_text{
+	color: black;
+	font-weight: bold;
+}
 
 body {
   overflow: hidden;
+  color: black;
+  /*font-size: 1em;*/
 }
 
 #content{

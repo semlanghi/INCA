@@ -466,7 +466,7 @@ public class ProfilingImp implements ProfilingService{
 			cs.add(((reps.get(i)*1d)/(count*1d))*100);
 		}		
 		return "{\"id\":"+ids.toString()+", \"count\":"+cs.toString()+"}";
-	}
+	} 
  
 	private long puissance(int i, int position) {
 		long res = 1;
@@ -520,17 +520,215 @@ public class ProfilingImp implements ProfilingService{
 
 	int limit = 50;
 	
+	String [] colorsQuery = {"blue", "green", "maroon", "black"}; 
+	
+	public String helpQueryExecution(String param) throws Exception {
+		
+		JSONObject jo =  new JSONObject(param);
+		String query = jo.getString("query");
+		String operator = jo.getString("operator");
+		JSONArray measures = jo.getJSONArray("measure");	
+		
+		int filter = 0;
+		try {
+			filter = jo.getInt("filterValue");
+		}catch(Exception e) {}
+		long cstrs = jo.getLong("selectedConstraints");
+	
+		Map<String, String> newQueries = getQueries(query, operator, measures, filter, cstrs);
+
+		Map<String, Map<Integer, Double>> resViolations = new HashMap<String, Map<Integer, Double>>();
+		Map<String, Map<Long, Double>> resSubVio = new HashMap<String, Map<Long, Double>>();
+		
+		Map<String, Double> alls = new HashMap<String, Double>();
+
+		JSONArray datas = new JSONArray();
+		
+		Map<Integer, String> positions = getConstraintPos();
+		
+		for(String measure:newQueries.keySet()) {
+			ResultSet rs = Config.con.createStatement().executeQuery(newQueries.get(measure));
+			int j = 0;
+	  
+			resViolations.put(measure, new HashMap<>());
+			resSubVio.put(measure, new HashMap<>());
+			alls.put(measure, 0d);
+			
+			JSONObject ds = new JSONObject();
+			JSONArray attributes = new JSONArray();
+			JSONArray data = new JSONArray();
+			
+			for(int i =1; i<rs.getMetaData().getColumnCount()-1; i++)
+				attributes.put(rs.getMetaData().getColumnLabel(i));
+			attributes.put(measure);
+			attributes.put("Prov");    
+			ds.put("attrs", attributes);
+			
+			while(rs.next()) {
+				if ((operator.equalsIgnoreCase("all") && j<=limit)||(!operator.equalsIgnoreCase("all"))) {
+					//List<String> line = new ArrayList<String>();
+					JSONArray line = new JSONArray();
+					for(int i =1; i<rs.getMetaData().getColumnCount(); i++)
+							line.put(rs.getString(i));
+					line.put(getSet(rs.getLong(rs.getMetaData().getColumnCount()), positions));
+					data.put(line);
+					j++;
+				}
+  
+				int vio = rs.getInt(rs.getMetaData().getColumnCount()-1);
+				long sub = rs.getLong(rs.getMetaData().getColumnCount());
+				
+				if (!resViolations.get(measure).containsKey(vio))
+					resViolations.get(measure).put(vio, 0d);
+				if (!resSubVio.get(measure).containsKey(sub))
+					resSubVio.get(measure).put(sub, 0d);
+				
+				resViolations.get(measure).put(vio, resViolations.get(measure).get(vio)+1);
+				resSubVio.get(measure).put(sub, resSubVio.get(measure).get(sub)+1);
+				alls.put(measure, alls.get(measure)+1);
+			}
+			rs.close();
+			ds.put("data", data);
+			datas.put(ds);
+		}
+
+		JSONObject sub_vio = new JSONObject();
+		JSONObject vio_dist = new JSONObject();
+		
+		JSONObject options = new JSONObject();
+		JSONObject scales = new JSONObject();
+		JSONArray yaxes = new JSONArray();
+		JSONObject ticks = new JSONObject();
+		ticks.put("beginAtZero", true);
+		ticks.put("fontColor", "black");
+		ticks.put("fontStyle", "bold");
+		JSONObject ticks__ = new JSONObject();
+		ticks__.put("ticks", ticks);
+		yaxes.put(ticks__);
+		
+		JSONArray xaxes = new JSONArray();
+		JSONObject ticks_ = new JSONObject();
+		ticks_.put("fontColor", "black");
+		ticks_.put("fontStyle", "bold");
+		JSONObject ticks_1 = new JSONObject();
+		ticks_1.put("ticks", ticks_);
+		xaxes.put(ticks_1);
+		scales.put("yAxes", yaxes);
+		scales.put("xAxes", xaxes);
+		options.put("scales", scales);
+		
+		sub_vio.put("type", "bar");
+		vio_dist.put("type", "bar");
+		sub_vio.put("options", options);
+		vio_dist.put("options", options);
+		
+		/*
+		 data: {
+		labels: ['a', 'b', 'c', 'd', 'd'],
+		datasets: [{
+			label: 'D2',
+			data: [1,4,3, 0],
+			backgroundColor: 'red'
+		}, 
+		{
+			label: 'D1',
+			data: [1,4,3, 4, 5],
+			backgroundColor: 'blue'
+		}]
+		}
+		 */
+		
+		Set<Long> subX = new HashSet<Long>();
+		Set<Integer> vioX = new HashSet<Integer>();
+		
+		for(String key:resSubVio.keySet()) { 
+			subX.addAll(resSubVio.get(key).keySet());
+			vioX.addAll(resViolations.get(key).keySet());
+		}
+		
+		JSONObject vioData = new JSONObject();
+		JSONObject subData = new JSONObject();
+		
+		JSONArray vioDatasets = new JSONArray();
+		JSONArray subDatasets = new JSONArray();
+		int color = 0;
+		for(String key:resViolations.keySet()) {
+			
+			double all = alls.get(key);
+			
+			JSONObject item = new JSONObject();
+			item.put("label", key);
+			item.put("backgroundColor", colorsQuery[color]);
+			item.put("data", getData_vio(resViolations.get(key), vioX, all));
+			vioDatasets.put(item);
+			
+			JSONObject item1 = new JSONObject();
+			item1.put("label", key);
+			item1.put("backgroundColor", colorsQuery[color]);
+			item1.put("data", getData_sub(resSubVio.get(key), subX, all));
+			subDatasets.put(item1);
+			color = (color+1)%4;
+		}
+		
+		vioData.put("datasets", vioDatasets);
+		subData.put("datasets", subDatasets);
+
+		JSONArray vioLabels = new JSONArray();
+		JSONArray subLabels = new JSONArray();
+		
+		for(Integer x:vioX)
+			vioLabels.put(x);
+		
+		for(Long x:subX) 
+			subLabels.put(getSet(x, positions));		
+		vioData.put("labels", vioLabels);
+		subData.put("labels", subLabels);
+		
+		JSONObject result = new JSONObject();
+		result.put("data", datas);
+		sub_vio.put("data", subData);
+		vio_dist.put("data", vioData);
+		result.put("sub_vio", sub_vio);
+		result.put("vio_dist", vio_dist);
+		
+		return result.toString();
+	}
+	
+	private JSONArray getData_sub(Map<Long, Double> map, Set<Long> subX, double all) {
+		JSONArray getData_vio = new JSONArray();
+		for(Long i:subX) {
+			if (map.containsKey(i))
+				getData_vio.put((map.get(i)/all)*100);
+			else
+				getData_vio.put(0);
+		}
+		return getData_vio;
+	}
+
+	private JSONArray getData_vio(Map<Integer, Double> map, Set<Integer> vioX, double all) {
+		JSONArray getData_vio = new JSONArray();
+		for(Integer i:vioX) {
+			if (map.containsKey(i))
+				getData_vio.put((map.get(i)/all)*100);
+			else
+				getData_vio.put(0);
+		}
+		return getData_vio;
+	}
+
 	@Override
 	public String getQueryExecution(String param) throws Exception {
-		//to do
-	//content = "{'query':'"+query+"', 'operator':'"+operator+"', 
-	//'measure':'"+measure+"', 'filterValue':"+filter_value+" 
-	//'selectedConstraints':"+selectedConstraints+"}"; 
-		  
+
+		String res = helpQueryExecution(param);
+		//System.out.println(res);
+		return res;
+		     
+		/*
 		JSONObject jo =  new JSONObject(param);
 		String query = jo.getString("query");
 		String operator = jo.getString("operator");
 		String measure = jo.getString("measure");
+		
 		int filter = 0;
 		try {
 			filter = jo.getInt("filterValue");
@@ -542,7 +740,7 @@ public class ProfilingImp implements ProfilingService{
 		System.out.println(newQuery);
 		
 		String dataShown = "{\"attrs\": ";//"data"
-		
+		          
 		ResultSet rs = Config.con.createStatement().executeQuery(newQuery);
 		List<String> columns = new ArrayList<String>();
 		for(int i =1; i<rs.getMetaData().getColumnCount()-1; i++)
@@ -565,7 +763,7 @@ public class ProfilingImp implements ProfilingService{
 				data.add(line.toString());
 				j++;
 			}
-			
+				
 			int vio = rs.getInt(rs.getMetaData().getColumnCount()-1);
 			long sub = rs.getLong(rs.getMetaData().getColumnCount());
 			
@@ -609,6 +807,8 @@ public class ProfilingImp implements ProfilingService{
 		dataShown += data.toString()+"}";
 		
 		return "{\"data\":"+dataShown+", \"sub_vio\":"+sub_vio+", \"vio_dist\":"+vio_dist_+"}"; 
+		*/
+		
 	}
 	
 
@@ -649,10 +849,18 @@ public class ProfilingImp implements ProfilingService{
 	LANGUAGE plpgsql IMMUTABLE STRICT;
 	 */
 	
-	 
+
+	
+	//for CBM and CBS
+	private Map<String, String> getQueries(String query, String op, JSONArray measures, int filter, long cstrs) {
+		Map<String, String> results = new HashMap<>();
+		for(int i = 0; i<measures.length(); i++) 
+			results.put(measures.getString(i), getQuery(query, op, measures.getString(i), filter, cstrs));
+		return results;
+	}
+	
 	//for CBM and CBS
 	private String getQuery(String query, String op, String measure, int filter, long cstrs) {
-		
 		
 		String q[] = query.split("( )+");
 		query = "";
@@ -670,7 +878,6 @@ public class ProfilingImp implements ProfilingService{
 				}
 			}
 		}
-		
 		
 		String tempQuery1[] = query.replace("select", "").split("from");
 		
@@ -727,9 +934,7 @@ public class ProfilingImp implements ProfilingService{
 				res += " AND vio "+ op +" "+filter;
 			else
 				res += " WHERE vio "+ op +" "+filter;
-		}
-		
-		
+		}		
 		return res;
 	}
 	

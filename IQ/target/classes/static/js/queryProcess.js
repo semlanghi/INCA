@@ -17,14 +17,10 @@ function loadConstraints_for_query(){
 		var res = '';
 		for (var j = 0; j < e.length; j++) {
             var val = e[j];
-            res += '<div style="display: inline; margin-right: 10px;"><input type="checkbox" id="'+val.id+'" value="'+val.id+'" checked></input><label for="'+val.id+'">'+val.id+'</label></div>';
+            res += '<div style="display: inline; margin-right: 10px;"><input type="checkbox" id="'+val.id+'" value="'+val.id+'" checked></input><label for="'+val.id+'" class="commun_text" >'+val.id+'</label></div>';
 		}
 		constraints_to_check.innerHTML = res;
 	}).catch(e => alert(e));
-}
-
-function giveNext(){
-    alert("Load the next");
 }
 
 function simple_statistics_by_constraint_load(){
@@ -47,7 +43,22 @@ function simple_statistics_subset_constraints_remove(){
     y.innerHTML = ''
 }
 
-function display_subsets(X, Y){
+function display_subsets(obj){
+    simple_statistics_subset_constraints_remove();
+    simple_statistics_subset_constraints_load();    
+    var ctx3 = document.getElementById('simple_statistics_subset_constraints').getContext('2d');
+    var chart3 = new Chart(ctx3, obj)
+}
+
+function display_by_constraint(obj){   
+    //alert('hahah')
+    simple_statistics_by_constraint_remove();
+    simple_statistics_by_constraint_load();    
+    var ctx3 = document.getElementById('simple_statistics_by_constraint').getContext('2d');
+    var chart3 = new Chart(ctx3, obj);
+}
+
+/*function display_subsets(X, Y){
 
     simple_statistics_subset_constraints_remove();
     simple_statistics_subset_constraints_load();    
@@ -70,17 +81,14 @@ function display_subsets(X, Y){
                 }
             },
             scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+            yAxes: [{ticks: {beginAtZero: true}}],
+            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
             }
     }
     });	    
-}
+}*/
 
-
+/*
 function display_by_constraint(X, Y){   
     //alert('hahah')
     simple_statistics_by_constraint_remove();
@@ -104,16 +112,13 @@ function display_by_constraint(X, Y){
                 }
             },
             scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+            yAxes: [{ticks: {beginAtZero: true}}],
+            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
             }
     }
     });	    
 }
-
+*/
 function getSelectedConstraints_(){
     var pos = 0;
     if (constraint_for_query){
@@ -140,6 +145,8 @@ function validQuery(){
     var selectedConstraints = getSelectedConstraints_();
     var content = '';
 
+    //alert(measure)
+
     query = query.replaceAll("'", "\\'");
 
     if (operator=='top-k' || operator=='top-k_'){
@@ -148,8 +155,7 @@ function validQuery(){
         operator='top-k';
         filter_value = parseInt(filter_value); 
         if (filter_value){
-            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+", 'selectedConstraints':"+selectedConstraints+"}"; 
-            //content = JSON.stringify(content)
+            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':["+measure+"], 'filterValue':"+filter_value+", 'selectedConstraints':"+selectedConstraints+"}"; 
             display_figs(content, measure);
         }else
             alert("The filter value most be an integer");
@@ -202,31 +208,44 @@ function display_figs(data, measure){
 
     var param = {'method':'Post', 'body':data};
     var url = adr+"query/execution/"
-    if (measure=='CBS' || measure == 'CBM'){
+    //if (measure=='CBS' || measure == 'CBM'){
         fetch(url,param).then(e => e.json()).then(e => {			
             
-            display_subsets(e.sub_vio.X, e.sub_vio.Y);
-            display_by_constraint(e.vio_dist.X, e.vio_dist.Y)
-            display_data(e.data)
+            //display_subsets(e.sub_vio.X, e.sub_vio.Y);
+            //display_by_constraint(e.vio_dist.X, e.vio_dist.Y)
+            //display_data(e.data)
+
+            display_subsets(e.sub_vio);
+            display_by_constraint(e.vio_dist);
+            display_data(e.data);
 
         }).catch(e => {alert(e+': Error in query')});
-    }else {
-        alert(data.measure+" is not supported !")
-    }
+    //}else {
+    //    alert(measure+" is not supported !")
+    //}
 
 
 }
 
-function display_data(data){
+function display_data(d){
     var tab = document.getElementById("result");
-    var attrs = data["attrs"]
-    var datas = data["data"]
-    var res = '<tr style="background: #aaa; color: white;">';//'<tr> <th>Selection</th> <th>Constraint ID</th> <th>Description</th>   </tr>';
-    attrs.forEach(e => {res += '<th>'+e+'</th>';});
-    res += '</tr>';
-    datas.forEach(el => {var t='<tr>'; el.forEach(e => {t += '<th>'+e+'</th>';}); t+='</tr>'; res+=t;});
-    tab.innerHTML = '<table>'+res+'</table>';
-    //alert("display data")
+    var res = '';
+
+    //alert(JSON.stringify(d));
+
+    for(var i=0;i<d.length; i++){
+        var data = d[i]
+        var attrs = data["attrs"]
+        var datas = data["data"]
+        //start
+        res += '<div style="display: inline-block; margin: 0.5em; padding: 0.5em;"> <table>'
+        res += '<tr style="background: #aaa; color: white; padding:10em;">';//'<tr> <th>Selection</th> <th>Constraint ID</th> <th>Description</th>   </tr>';
+        attrs.forEach(e => {res += '<th>'+e+'</th>';});
+        res += '</tr>';
+        datas.forEach(el => {var t='<tr>'; el.forEach(e => {t += '<th>'+e+'</th>';}); t+='</tr>'; res+=t;});
+        res +="</table> </div>"
+    }
+    tab.innerHTML = res;
 }
 
 function getOperateursValue(){
@@ -234,19 +253,26 @@ function getOperateursValue(){
 }
 
 function getMeasuresValue(){
-	return document.querySelector('input[name="measures"]:checked').value;
+    var res = [];
+    var cbm = document.getElementById("CBM");
+    var cbs = document.getElementById("CBS");
+    var csm = document.getElementById("CSM");
+    var css = document.getElementById("CSS");
+    
+    if (cbm.checked)
+        res.push("'CBM'");
+    if (cbs.checked)
+        res.push("'CBS'");
+    if (csm.checked)
+        res.push("'CSM'");
+    if (css.checked)
+        res.push("'CSS'");
+    return res;
+	//return document.querySelector('input[name="measures"]:checked').value;
 }
 
 
-
-/*function top_k_(){
-    //alert('top k')
-    document.getElementById("filter_value").style = "display: block;";
-    document.getElementById("filter_value").placeholder = 'Filter value';
-}*/
-
 function top_k(){
-    //alert('top k')
     document.getElementById("filter_value").style = "display: block;";
     document.getElementById("filter_value").placeholder = 'Filter value';
 }
