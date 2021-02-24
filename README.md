@@ -6,7 +6,7 @@ This application allows data inconsistency profiling.
 The project is a maven project. One has to install maven, at least version 3.6.3
 
 ## Execution 
-cd IQ
+### cd IQ
 mvn clean
 mvn install
 mvn spring-boot:run
