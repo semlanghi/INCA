@@ -24,7 +24,11 @@ public class Config {
 	public static String getUrl() {
 		return "jdbc:"+type+"://"+host+":"+port+"/"+databaseName+"?user="+userName+"&password="+passWord;
 	}
-	
+
+	public static Connection getCon(String t, String h, String p, String dbn, String usrn, String pass) throws SQLException {
+		String param = "jdbc:"+t+"://"+h+":"+p+"/"+dbn+"?user="+usrn+"&password="+pass;
+		return DriverManager.getConnection(param);
+	}
 	
 	public static Connection getCon() throws SQLException {
 		return DriverManager.getConnection(getUrl());
@@ -42,6 +46,15 @@ public class Config {
 		while(res.next()) 
 			getTables.add(res.getString(1));
 		return getTables;
+	}
+
+	public static long position(int i) {
+		if (i<0)
+			return -1;
+		long res= 1;
+		for(int j=0; j<i; i++)
+			res*=2;
+		return res;
 	}
 	
 }

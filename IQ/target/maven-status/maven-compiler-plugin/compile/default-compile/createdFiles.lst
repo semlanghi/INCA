@@ -6,3 +6,4 @@ com\limos\fr\mod\Config.class
 com\limos\fr\exceptions\DataLoadingError.class
 com\limos\fr\queries\ProfilingService.class
 com\limos\fr\mod\Profiling.class
+com\limos\fr\queries\ProfilingImp$Color.class

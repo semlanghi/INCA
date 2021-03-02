@@ -58,67 +58,6 @@ function display_by_constraint(obj){
     var chart3 = new Chart(ctx3, obj);
 }
 
-/*function display_subsets(X, Y){
-
-    simple_statistics_subset_constraints_remove();
-    simple_statistics_subset_constraints_load();    
-    var ctx3 = document.getElementById('simple_statistics_subset_constraints').getContext('2d');
-    var chart3 = new Chart(ctx3, {
-        type: 'bar',
-        data: {
-            labels: X,
-            datasets: [{
-                label: 'Distribution by subsets of constraints',
-                data: Y,
-                backgroundColor: 'rgb(127,50,127)'
-            }]
-        },
-        options: {
-            legend: {
-                display: false,
-                labels: {
-                display: false
-                }
-            },
-            scales: {
-            yAxes: [{ticks: {beginAtZero: true}}],
-            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
-            }
-    }
-    });	    
-}*/
-
-/*
-function display_by_constraint(X, Y){   
-    //alert('hahah')
-    simple_statistics_by_constraint_remove();
-    simple_statistics_by_constraint_load();    
-    var ctx3 = document.getElementById('simple_statistics_by_constraint').getContext('2d');
-    var chart3 = new Chart(ctx3, {
-        type: 'bar',
-        data: {
-            labels: X,
-            datasets: [{
-                label: 'Distribution of violations',
-                data: Y,
-                backgroundColor: 'rgb(127,127,127)'
-            }]
-        },
-        options: {
-            legend: {
-                display: false,
-                labels: {
-                display: false
-                }
-            },
-            scales: {
-            yAxes: [{ticks: {beginAtZero: true}}],
-            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
-            }
-    }
-    });	    
-}
-*/
 function getSelectedConstraints_(){
     var pos = 0;
     if (constraint_for_query){
@@ -233,19 +172,29 @@ function display_data(d){
 
     //alert(JSON.stringify(d));
 
+    var class_ = 'col-md-12 col-sm-12 col-xs-12'
+
+    if (d.length == 2)
+        class_ = 'col-md-6 col-sm-6 col-xs-6';
+    if (d.length == 3)
+        class_ = 'col-md-4 col-sm-4 col-xs-4';
+    if (d.length == 4)
+        class_ = 'col-md-3 col-sm-3 col-xs-3';
+    
+
     for(var i=0;i<d.length; i++){
         var data = d[i]
         var attrs = data["attrs"]
         var datas = data["data"]
         //start
-        res += '<div style="display: inline-block; margin: 0.5em; padding: 0.5em;"> <table>'
+        res += '<div class="'+class_+'" style="padding: 0.5em;"> <table style="width: 100%">'
         res += '<tr style="background: #aaa; color: white; padding:10em;">';//'<tr> <th>Selection</th> <th>Constraint ID</th> <th>Description</th>   </tr>';
         attrs.forEach(e => {res += '<th>'+e+'</th>';});
         res += '</tr>';
         datas.forEach(el => {var t='<tr>'; el.forEach(e => {t += '<th>'+e+'</th>';}); t+='</tr>'; res+=t;});
         res +="</table> </div>"
     }
-    tab.innerHTML = res;
+    tab.innerHTML = '<div class="row">'+res+"</div>";
 }
 
 function getOperateursValue(){
@@ -275,15 +224,18 @@ function getMeasuresValue(){
 function top_k(){
     document.getElementById("filter_value").style = "display: block;";
     document.getElementById("filter_value").placeholder = 'Filter value';
+    document.querySelectorAll(".with_treshold").forEach(e => {e.style="display: none;"});
 }
 function threshold(){
     //alert('threshold')
     document.getElementById("filter_value").style = "display: block;";
     document.getElementById("filter_value").placeholder = 'op Filter value (op: = | <= | >= | < | >)';
+    document.querySelectorAll(".with_treshold").forEach(e => {e.style="display: block;"});
 }
 function all_(){
     //alert('all')
     document.getElementById("filter_value").style = "display: none;";
+    document.querySelectorAll(".with_treshold").forEach(e => {e.style="display: none;"});
 }
 
 
@@ -297,7 +249,15 @@ function selectedQuery(){
 }
 
 
+function generateInterval(){
+    var min = document.getElementById("min");
+    var max = document.getElementById("max");
 
+    //test
+    min.innerText = "Min:: CBS: 10, CBM: 12"
+    max.innerText = "Max:: CBS: 10, CBM: 12"
+
+}
 
 
 

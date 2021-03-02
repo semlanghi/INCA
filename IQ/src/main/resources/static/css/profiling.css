@@ -117,7 +117,9 @@ background:white;
   color: white;
 }
 
-
+.with_treshold{
+  display: none;
+}
 
 
 

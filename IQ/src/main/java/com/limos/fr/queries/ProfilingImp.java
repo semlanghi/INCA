@@ -547,7 +547,9 @@ public class ProfilingImp implements ProfilingService{
 		Map<Integer, String> positions = getConstraintPos();
 		
 		for(String measure:newQueries.keySet()) {
-			ResultSet rs = Config.con.createStatement().executeQuery(newQueries.get(measure));
+			String query_ = newQueries.get(measure);
+			System.out.println(query_);
+			ResultSet rs = Config.con.createStatement().executeQuery(query_);
 			int j = 0;
 	  
 			resViolations.put(measure, new HashMap<>());
@@ -828,7 +830,7 @@ public class ProfilingImp implements ProfilingService{
 		while(r.next())
 			cst.put(r.getInt("position"), r.getString("id"));
 		r.close();
-		return cst;
+		return cst;  
 	}
 
 	/*
@@ -884,39 +886,45 @@ public class ProfilingImp implements ProfilingService{
 		String select = "SELECT "+tempQuery1[0];
 		String from = " FROM "+tempQuery1[1].replace("where", " WHERE ");
 		
-		//Map<String, String> tabs = new HashMap<String, String>();
 		String tab = tempQuery1[1];
 		if (tempQuery1[1].contains("where")) {
 			tab = tempQuery1[1].split("where")[0];
 		}
 		
-		//select a, min(v1 & v2), v1 & v2 from R1
-		
 		String tempQuery2[] = tab.split("( )*,( )*");
 		
 		String adSelect="";
 		String adSelect1="";
-		   
+		    
 		for(String relation:tempQuery2) {
+			System.out.println(relation);
+			
 			String t1 [] = relation.split("( )+");
 			String rel = t1[0];
-			if (rel.isEmpty())
+			String temp = t1[0];
+			if (temp.isEmpty())
 				rel = t1[1];
 			try {
-				rel = t1[2];
+				if (temp.isEmpty())
+					rel = t1[2];
+				else
+					rel = t1[1];
 			}catch(Exception e) {}
-			adSelect1 += rel+".vioset & ";
+			
+			
+			
+			adSelect1 += rel+".vioset | ";
 			if (measure.equalsIgnoreCase("CBS"))
-				adSelect += rel+".vioset & ";
+				adSelect += rel+".vioset | ";
 			if (measure.equalsIgnoreCase("CBM"))
 				adSelect += "bit_count("+rel+".vioset & " + cstrs + ") + ";
 		}
 		
-		adSelect1 = adSelect1+cstrs;//.substring(0, adSelect1.length()-2);
+		adSelect1 = "("+adSelect1.substring(0, adSelect1.length()-2)+") & "+cstrs;
 		adSelect  = adSelect.substring(0, adSelect.length()-2);
 		
 		if (measure.equalsIgnoreCase("CBS"))
-			adSelect = "bit_count("+adSelect+" & "+ cstrs +")";
+			adSelect = "bit_count(("+adSelect+") & "+ cstrs +")";
 		
 		adSelect = "("+adSelect + ") AS vio";
 		adSelect1 = "("+adSelect1 + ") AS vioset";

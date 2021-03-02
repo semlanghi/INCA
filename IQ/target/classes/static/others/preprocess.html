@@ -2,7 +2,7 @@
 
     <div>
         <label for="database_name_p" style="color: white;"> Database Name </label>
-        <input id="database_name_p" type="text" class="form-control" value="inspection"></input>
+        <input id="database_name_p" type="text" class="form-control" value="preprocess"></input>
     </div>
     <div>
         <label for="database_type_p" style="color: white;"> Database Type </label>
@@ -26,17 +26,21 @@
     </div>
 
     <div>
-        <label for="constraint_path" style="color: white;"> Constraint Path </label>
-        <input id="constraint_path" type="text" class="form-control" value=""></input>
+        <label for="constraints" style="color: white;"> Constraints </label>
+        <textarea name="constraints" id="constraints" rows=5 style="width: 100%; font-family: system-ui; color: blue; font-size: 2em;"></textarea>
         
-        <div style="margin: auto; width: 100px">
+        <!--div style="margin: auto; width: 100px">
             <button class="btn" style="margin-top: 5px" onclick="load_constraint()">Load</button>	  
-        </div>
+        </div-->
     </div>
+
+
+	<div id="message" style="display:none"></div>
+	<div id="attente" style="display:none"><img src="/img/attente1.gif" height="50" width="50"/></div>
 
     
     <div style="margin: auto; width: 100px">
-        <button style="margin-top:0.5em;" onclick="preprocess()" class="btn btn-primary mb-2">Preprocess</button>
+        <button style="margin-top:0.5em; " onclick="preprocess()" class="btn btn-primary mb-2">Preprocess</button>
     </div>
 
 </div>

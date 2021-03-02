@@ -68,27 +68,37 @@
         </div>
         
         <div class="col-md-6 col-sm-6 col-xs-6">
-            
             <!--div style="display: inline-block;"-->
             	<select onchange="selectedQuery()" name="p" id="workload" class = "form-control">
                 	<option value="">--Choose a query--</option>
 				    <option value="SELECT dba_name FROM FoodInspection">Q1</option>
 				    <option value="SELECT dba_name FROM FoodInspection WHERE risk='Risk 2 (Medium)'">Q2</option>
 				    <option value="SELECT dba_name FROM FoodInspection WHERE risk<>'Risk 2 (Medium)'">Q3</option>
+                    <option value="Select t2.license From   foodinspection   t1, foodinspection t2,   foodinspection  t3 WHERE t1.license=t2.license and t1.license=t3.license and t2.results='Fail' and   t2.inspection_type ='Canvass' and t3.inspection_type='Complaint' and t1.inspection_date<t3.inspection_date  and  t3.inspection_date < t2.inspection_date and t1.zip >= '60666' and t2.zip>'60655' and t3.zip>'60655'">Q4</option>
+                    <option value="select t1.license from foodinspection t1, foodinspection t2 where t1.zip <= t2.zip  and t1.zip > '60655' and t1.city = 'Chicago'">Q5</option>        
                 </select>
-            <!--/div-->
-		
-			<!--div style="margin-left: 10px; display: inline-block;"-->
-            	<button class="btn btn-primary" onclick="validQuery()" style="margin-top: 10px;">Valid</button> 
-            <!--/div-->
-			            
+            <!--/div-->		
+            <!--div style="margin-left: 10px; display: inline-block;"-->
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <button class="btn btn-primary" onclick="validQuery()">Valid</button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 with_treshold">
+                        <button class="btn btn-primary" onclick="generateInterval()" >Interval</button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 with_treshold">
+                        <label id="min" style="color: green;"></label>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 with_treshold">
+                        <label id="max" style="color: red;"></label>
+                    </div>
+                </div>
+                        
         </div>
         
     </div>
 
-
-    <div class="row">
-            
+    <div class="row">   
         <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="pad" style="margin: 0.5em; padding: 1em;">
                 <div style="border: 1px solid black; padding: 0.5em;">

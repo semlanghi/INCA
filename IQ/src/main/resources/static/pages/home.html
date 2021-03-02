@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset = "utf-8"/>
+<title>IQ-T</title>
+
+<link href="css/home.css" rel="stylesheet">
+<link href="css/profiling.css" rel="stylesheet">
+
+<link rel="stylesheet" href="css/other/bootstrap.min.css">
+<link rel="stylesheet" href="css/other/font-awesome.min.css">
+<link rel="stylesheet" href="css/other/nprogress.css">
+<link rel="stylesheet" href="css/other/custom.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">	
+</head>
+
+<body>
+
+<div class = "container">
+
+<div class="row">
+	<div id="dialog" style="z-index: 10;border:1px solid black; background: white; display: none; position: absolute; top:5px; padding: 0.5em; left: 10px;">
+		<div id="title_dialog" style="background: #aaa; text-align: center; color: white; font-weight: bold; font-size: 2em; font-family: sans-serif;"></div>
+		<!--div class="separator"></div-->
+		<div id="from_dialog" style="color: blue; font-size: 1.5em; margin-top:10px;"></div>
+		<div style="width: auto; margin-left: 50%;"> <i class="material-icons" style="font-size:48px;color:red">play_for_work</i> </div>
+		<div id="where_dialog" style="color: darkgoldenrod; font-size: 1.5em;" ></div>
+		<div style="width: auto; margin-left: 50%;"> <button onclick="quit_boite()"> Quit </button></div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-2 col-sm-2 col-xs-0 menu" id="menu"> 
+	</div>	
+		<div class="col-md-10 col-sm-10 col-xs-12" id="content">			
+	</div>
+</div>
+
+<script src="js/adresses.js"></script>
+<script src="js/attr_relationship.js"></script>
+<script src = "js/menu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src = "js/queryProcess.js"></script>
+<script src = "js/preprocess.js"></script>
+<script src = "js/profiling.js"></script>
+<script src = "js/profiling2.js"></script>
+<script src = "js/profiling2_.js"></script>
+<script src="js/dataExploration.js"></script>
+
+</body>
+
+</html>
