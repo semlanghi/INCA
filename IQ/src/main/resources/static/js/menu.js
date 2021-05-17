@@ -117,7 +117,7 @@ function loadConstraints_forCS(){
 		for (var j = 0; j < e.length; j++) {
 			var val = e[j];
 			//v+='<option value="'+val.id+'">'+val.id+'</option>'
-			v1+='<option value="'+val.id+'">'+val.id+'</option>'
+			v1+='<option value="'+val.id+'"> <span class="size__1 commun_text">'+val.id+'</span></option>'
 		}
 		//x.innerHTML = v;
 		x1.innerHTML = v1;

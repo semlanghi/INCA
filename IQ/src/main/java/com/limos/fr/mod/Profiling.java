@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.limos.fr.exceptions.DataLoadingError;
 import com.limos.fr.queries.ProfilingService;
+import com.limos.fr.queries.QueryService;
 
 @RestController
 public class Profiling {
 
 	@Autowired
 	private ProfilingService service;
+	@Autowired
+	private QueryService queryService;
 	
 	@RequestMapping(value = "/percentVio", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public String getPercentVioAndNoVio() {
@@ -162,13 +165,21 @@ public class Profiling {
 	}	    
 	
 	
+	
 	@RequestMapping(value = "/query/execution/", method = RequestMethod.POST)
 	public String query_execution(@RequestBody String param) {
 		try {
-			String res = service.getQueryExecution(param);
+//			String res = service.getQueryExecution(param);
+			String res = queryService.runQuery(param);
+			
+//			System.out.println(res);
+			
 			return res; 
 		}catch(Exception e) {e.printStackTrace(); throw new DataLoadingError();}
-	}	   
+	}
+	
+	
+	
 
 	@RequestMapping(value = "/profiling/bytable/", method = RequestMethod.POST)
 	public String profiling_by_table(@RequestBody String param) {

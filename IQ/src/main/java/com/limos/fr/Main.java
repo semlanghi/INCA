@@ -3,38 +3,30 @@ package com.limos.fr;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.limos.fr.queries.topk.QueryEval;
+
 @SpringBootApplication
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		SpringApplication.run(Main.class, args);
-
-//		System.out.println("Sayez ...............................");
-		
-//		JSONObject o = new JSONObject();
-//		List<String> l = new ArrayList<String>();
-//		
-//		l.add("hello");
-//		o.put("a", "bbaab");
-//		o.put("b", "b_àbaab");
-//		JSONArray ll = new JSONArray(l);
-//		ll.put("ab");
-//		       
-//		JSONObject oo = new JSONObject();
-//		oo.put("a", "ccncncn");
-//		ll.put(oo); 
-//		o.put("c", ll);          
-//		      
-//		System.out.println(o);
-		    
-		      
-//		System.out.println(Math.round(1.45));
-		
-//		int first = 10;
-//		int total = 20;
-//		System.out.println(reduceFraction(first, total));
 	}   
+	 
 	
+	
+	static void test() throws Exception{
+		String query = "SELECT a1.A, a2.B FROM R1 a1, R2 a2 WHERE a1.B = a2.B +=20";
+		QueryEval ev = QueryEval.getInstance();
+		ev.decomposeQuery(query);
+		
+		System.out.println("K= "+ev.getK());
+		System.out.println("Query= "+ev.getQuery());
+		System.out.println("Most= "+ev.isMost());
+		System.out.println("alias= "+ev.getAlias());
+		
+		Long [] a = {12l, 11l};
+		System.out.println("pattern= "+ev.doPatern(a));
+	} 
 	
 	static String reduceFraction(int first, int total) {
 		if ((total%first)==0)

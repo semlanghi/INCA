@@ -25,3 +25,22 @@ height: 50em;
   padding: 4px;
   cursor: pointer;
 }
+
+.size__1{
+  font-size:1.5em;
+  font-weight: bold;
+}
+/*
+  
+*/
+.size__2{
+  font-size:1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*
+
+fontSize: size__
+
+*/

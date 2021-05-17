@@ -4,56 +4,51 @@ Pas encore implementé -->
     <div class="row">		
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class = "pad">
-                <div class="titre commun_text" style="font-size: 30px;">Parameters</div>
+                <div class="commun_text size__2" >Parameters</div>
                 <div class="separator"></div>
                 
                 <div class="row">
                     <div class="col-md-5 col-sm-5 col-xs-5">
-                        <label for="Constraint_Selected_" class="commun_text">  Selected Constraint </label>
-                        <select onchange="selectedSource_()" name="pets_" id="Constraint_Selected_" class = "form-control">
+                        <label for="Constraint_Selected_" class="commun_text size__1">  Selected Constraint </label>
+                        <select onchange="selectedSource_()" name="pets_" id="Constraint_Selected_" class = "size__1 form-control">
                         </select>
                     </div>
                     <div class="col-md-5 col-sm-5 col-xs-5"> 
-                        <label for="limit" class="commun_text">  LIMIT </label>
+                        <label for="limit" class="commun_text size__1">  LIMIT </label>
                         <input type="number" class="inB form-control" id="limit"></input>
                         <br/>
                         <!--button onclick="selectedSource_()" class="btn commun_text">Load</button-->
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-2">
-                        <button class="btn btn-primary" onclick="show_details()"> Cons. details... </button>
-                        <button class="btn btn-primary" onclick="exploration_by_constraint()">Show Distribution</button>
+                        <button class="size__1 btn btn-primary" style="font-size:1.5em;font-weight: bold;" onclick="show_details()"> Cons. details... </button>
+                        <button class="size__1 btn btn-primary" style="font-size:1.5em;font-weight: bold;" onclick="exploration_by_constraint()">Show Distrib...</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div class="fieldset fielsetprinc">
-                            <div class="legend commun_text">Attributs</div>
+                        <div class="commun_text size__1" style="text-align: center; margin-top: 5px;">Attributs</div>
+                        <div class="fieldset fielsetprinc" style="padding-top:1.5em" style="border-color: black;">
+                            <!--div class="legend commun_text size__1">Attributs</div-->
                             <div id="attributs" style="width: 100%; height: 100%; margin-top:0.5px; padding:3px;"></div>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-sm-3 col-xs-3">
-                        <div   class="fieldset fielsetprinc">
-                            <div class="legend commun_text" style="color:green">Select Attributs</div>
+                        <div class="commun_text size__1" style="text-align: center; margin-top: 5px;color:green;">Select Attributs</div>
+                        <div   class="fieldset fielsetprinc" style="border-color: green;">
+                            <!--div class="legend commun_text size__1" style="color:green">Select Attributs</div-->
                             <div id="attribut_to_show" style="height: 100%; width: 100%;margin-top:5px; padding:3px;"></div>
                         </div>
                     </div>
     
                     <div class="col-md-3 col-sm-3 col-xs-3">
-                        <div class="fieldset fielsetprinc">
-                            <div class="legend commun_text" style="color:blue">Group Attributs</div>
+                        <div class="commun_text size__1" style="text-align: center; margin-top: 5px;color:blue">Group Attributs</div>
+                        <div class="fieldset fielsetprinc" style="border-color: blue;">
+                            <!--div class="legend commun_text size__1" style="color:blue">Group Attributs</div-->
                             <div id="attribut_to_group" style="height: 100%; width: 100%;  margin-top:0.5px; padding:3px;">
                             </div>
                         </div>
                     </div>
-    
-                    <!--div class="col-md-2 col-sm-2 col-xs-2">
-                        <div class="fieldset fielsetprinc commun_text">
-                            <div class="legend commun_text" style="color:blue">Count Attributs</div>
-                            <div id="attribut_to_count" style="height: 100%; width: 100%;  margin-top:0.5px; padding:3px;">
-                            </div>
-                        </div>
-                    </div-->
     
                 </div>
 
@@ -64,18 +59,15 @@ Pas encore implementé -->
     <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-6">
             <div class = "pad">
-                <div class="titre commun_text">Constraints Correlation</div>               
-                <!--select onchange="selectedSource()" name="pets" id="Constraint_Selected" class = "form-control">
-                </select-->
+                <div class="commun_text size__2">Constraints Correlation</div> 
                 <div class="separator"></div>
                 <div id="constraints_correlation_">
-                    <!--canvas id="constraints_correlation"></canvas-->
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-6">
             <div class = "pad">
-                <div class="titre commun_text">Data Exploration by Constraint</div>
+                <div class="commun_text size__2">Data Exploration by Constraint</div>
                 <div class="separator"></div>
                     <div id="constraints_exploration_container" >
                         <!--canvas id="constraints_exploration" height="100" width="300"></canvas-->

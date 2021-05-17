@@ -18,6 +18,8 @@ import com.limos.fr.mod.Config;
 @Component
 public class ProfilingImp implements ProfilingService{
 
+	public static int size__ = 20 ; 
+	
 	public String getVioAndNoVio() throws Exception{
 		return byVio(-1);
 	}
@@ -25,7 +27,7 @@ public class ProfilingImp implements ProfilingService{
 	public String getVioAndNoVio(long l) throws Exception{
 		return byVio(l);
 	}
-
+              
 	public String byVio(long considered) throws Exception{
 		List<String> tables = Config.getTables();
 		double vio = 0d;
@@ -91,6 +93,7 @@ public class ProfilingImp implements ProfilingService{
 			}
 			s1.close();
 		}
+		
 		int all = 0;
 		for(int key:maps.keySet())
 			all += maps.get(key);
@@ -528,23 +531,21 @@ public class ProfilingImp implements ProfilingService{
 		String query = jo.getString("query");
 		String operator = jo.getString("operator");
 		JSONArray measures = jo.getJSONArray("measure");	
-		
 		int filter = 0;
+		
 		try {
 			filter = jo.getInt("filterValue");
 		}catch(Exception e) {}
 		long cstrs = jo.getLong("selectedConstraints");
-	
+		
 		Map<String, String> newQueries = getQueries(query, operator, measures, filter, cstrs);
-
+		
 		Map<String, Map<Integer, Double>> resViolations = new HashMap<String, Map<Integer, Double>>();
 		Map<String, Map<Long, Double>> resSubVio = new HashMap<String, Map<Long, Double>>();
 		
 		Map<String, Double> alls = new HashMap<String, Double>();
-
 		JSONArray datas = new JSONArray();
-		
-		Map<Integer, String> positions = getConstraintPos();
+		Map<Integer, String> positions = Config.getConstraintPos();
 		
 		for(String measure:newQueries.keySet()) {
 			String query_ = newQueries.get(measure);
@@ -572,7 +573,7 @@ public class ProfilingImp implements ProfilingService{
 					JSONArray line = new JSONArray();
 					for(int i =1; i<rs.getMetaData().getColumnCount(); i++)
 							line.put(rs.getString(i));
-					line.put(getSet(rs.getLong(rs.getMetaData().getColumnCount()), positions));
+					line.put(Config.getSet(rs.getLong(rs.getMetaData().getColumnCount()), positions));
 					data.put(line);
 					j++;
 				}
@@ -604,6 +605,8 @@ public class ProfilingImp implements ProfilingService{
 		ticks.put("beginAtZero", true);
 		ticks.put("fontColor", "black");
 		ticks.put("fontStyle", "bold");
+		ticks.put("fontSize", size__);
+		
 		JSONObject ticks__ = new JSONObject();
 		ticks__.put("ticks", ticks);
 		yaxes.put(ticks__);
@@ -612,12 +615,25 @@ public class ProfilingImp implements ProfilingService{
 		JSONObject ticks_ = new JSONObject();
 		ticks_.put("fontColor", "black");
 		ticks_.put("fontStyle", "bold");
+		ticks_.put("fontSize", size__);
 		JSONObject ticks_1 = new JSONObject();
 		ticks_1.put("ticks", ticks_);
 		xaxes.put(ticks_1);
 		scales.put("yAxes", yaxes);
 		scales.put("xAxes", xaxes);
+		
+		//legend: {display: false,labels: {fontColor: "black", fontStyle: "bold", fontSize:size__}}
+		
+		JSONObject legend = new JSONObject();
+		legend.put("display", true);
+		JSONObject labels = new JSONObject();
+		labels.put("fontColor", "black");
+		labels.put("fontStyle", "bold");
+		labels.put("fontSize", size__);
+		legend.put("labels", labels);
+		
 		options.put("scales", scales);
+		options.put("legend", legend);
 		
 		sub_vio.put("type", "bar");
 		vio_dist.put("type", "bar");
@@ -661,13 +677,13 @@ public class ProfilingImp implements ProfilingService{
 			JSONObject item = new JSONObject();
 			item.put("label", key);
 			item.put("backgroundColor", colorsQuery[color]);
-			item.put("data", getData_vio(resViolations.get(key), vioX, all));
+			item.put("data", Config.getData_vio(resViolations.get(key), vioX, all));
 			vioDatasets.put(item);
 			
 			JSONObject item1 = new JSONObject();
 			item1.put("label", key);
 			item1.put("backgroundColor", colorsQuery[color]);
-			item1.put("data", getData_sub(resSubVio.get(key), subX, all));
+			item1.put("data", Config.getData_sub(resSubVio.get(key), subX, all));
 			subDatasets.put(item1);
 			color = (color+1)%4;
 		}
@@ -682,7 +698,7 @@ public class ProfilingImp implements ProfilingService{
 			vioLabels.put(x);
 		
 		for(Long x:subX) 
-			subLabels.put(getSet(x, positions));		
+			subLabels.put(Config.getSet(x, positions));		
 		vioData.put("labels", vioLabels);
 		subData.put("labels", subLabels);
 		
@@ -696,28 +712,6 @@ public class ProfilingImp implements ProfilingService{
 		return result.toString();
 	}
 	
-	private JSONArray getData_sub(Map<Long, Double> map, Set<Long> subX, double all) {
-		JSONArray getData_vio = new JSONArray();
-		for(Long i:subX) {
-			if (map.containsKey(i))
-				getData_vio.put((map.get(i)/all)*100);
-			else
-				getData_vio.put(0);
-		}
-		return getData_vio;
-	}
-
-	private JSONArray getData_vio(Map<Integer, Double> map, Set<Integer> vioX, double all) {
-		JSONArray getData_vio = new JSONArray();
-		for(Integer i:vioX) {
-			if (map.containsKey(i))
-				getData_vio.put((map.get(i)/all)*100);
-			else
-				getData_vio.put(0);
-		}
-		return getData_vio;
-	}
-
 	@Override
 	public String getQueryExecution(String param) throws Exception {
 
@@ -812,26 +806,7 @@ public class ProfilingImp implements ProfilingService{
 		*/
 		
 	}
-	
 
-	private String getSet(Long key, Map<Integer, String> constraints) {
-		Set<String> set = new HashSet<String>();
-		for(Integer p:constraints.keySet()) {
-			if (((key>>p)&1)!=0)
-				set.add(constraints.get(p));
-		}
-		return set.toString().replace("[", "{").replace("]", "}");
-	}
-
-	private Map<Integer, String> getConstraintPos() throws Exception{
-		String query = "SELECT * FROM c.c;";
-		ResultSet r = Config.con.createStatement().executeQuery(query);
-		Map<Integer, String> cst = new HashMap<Integer, String>();
-		while(r.next())
-			cst.put(r.getInt("position"), r.getString("id"));
-		r.close();
-		return cst;  
-	}
 
 	/*
 	 CREATE OR REPLACE FUNCTION bit_count(value bigint) 

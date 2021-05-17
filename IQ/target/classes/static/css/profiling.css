@@ -6,12 +6,6 @@
 	border-top: 1px solid rgb(127,127,127);
 }
 
-.titre{
-	margin-top: 10px;
-	font-size: 2em;
-	margin-left: 10px;
-}
-
 .menu{
 background: white;
 height: 1000em;
@@ -23,21 +17,21 @@ height: 1000em;
 }
 
 .legend {
-  font-size: 1em ;
+  /*font-size: 1em ;*/
   font-weight: bold ;
   text-align: left ;
   width:inherit; 
   padding:0 10px; 
   border-bottom:none;
-  margin-top: -10px;
+  margin-top: -35px;
   background: white;
   position: absolute;
-  margin-left: 10px;
+  margin-left: 2px;
 }
 
 .fielsetprinc{
   overflow-y:scroll;
-  height: 5em;
+  height: 8em;
   padding: 6px;
 }
 

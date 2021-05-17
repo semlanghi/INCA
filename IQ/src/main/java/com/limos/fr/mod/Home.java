@@ -11,8 +11,6 @@ public class Home {
 	public ModelAndView home() {
 		ModelAndView m = new ModelAndView("home");
 		return m;
-	}
-	
-	
+	} 
 	
 }

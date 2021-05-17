@@ -65,7 +65,12 @@ var chart = new Chart(ctx, {
 			backgroundColor:['rgba(255, 0, 0, 0.5)', 'rgba(0,200, 100, 0.6)']
 		}]
 	},
-	options: {legend: {labels: {fontColor: "black", fontStyle: "bold"}}}   
+	options: {legend: {labels: {fontColor: "black", fontStyle: "bold", fontSise: size__}},
+	scales: {
+		yAxes: [{ticks: {beginAtZero: true, fontStyle: "bold", fontColor: "black", fontSize: size__}}],
+		xAxes: [{ticks: {fontStyle: "bold", fontColor: "black", fontSize: size__}}]
+	}
+	}   
 });	  
 }).catch(error => {alert(error)});    
 }
@@ -86,9 +91,9 @@ function distributionBySubsetViolation(){
 		},
 		options: {
 			scales: {
-            legend: {display: false,labels:{ fontColor: "black", fontStyle: "bold"}},
-			yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
-            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+            legend: {display: false,labels:{ fontColor: "black", fontStyle: "bold", fontSize: size__}},
+			yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold", fontSize: size__}}],
+            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold", fontSize: size__}}]
             }
 		} 
 	});
@@ -114,9 +119,9 @@ function distributionviolations(){
 			},
 			options:{
 				scales: {
-	            legend: {display: false,labels: {display: false, fontColor: "black", fontStyle: "bold"}},
-				yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
-	            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+	            legend: {display: false,labels: {display: false, fontColor: "black", fontStyle: "bold", fontSize: size__}},
+				yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold", fontSize: size__}}],
+	            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold", fontSize: size__}}]
 	            }
 			}
 		});
@@ -140,9 +145,9 @@ function distributionByConstraints(){
 			},
 			options: {
 				scales: {
-		            legend: {display: false,labels: { fontColor: "black", fontStyle: "bold"}},
-					yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
-		            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+		            legend: {display: false,labels: { fontColor: "black", fontStyle: "bold", fontSize: size__}},
+					yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold", fontSize: size__}}],
+		            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold", fontSize: size__}}]
 	            }	
 			}
 		});	
@@ -270,7 +275,10 @@ function distributionviolationsProportion_(considered){
 				backgroundColor:['rgba(255, 0, 0, 0.5)', 'rgba(0,200, 100, 0.6)']
 			}]
 		},
-		options: {legend: {labels: {fontColor: "black", fontStyle: "bold"}}}   
+		options: {legend: {labels: {fontColor: "black", fontStyle: "bold", fontSize: size__}},
+		yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold", fontSize: size__}}],
+		xAxes: [{ticks: {fontColor: "black", fontStyle: "bold", fontSize: size__}}]
+	}   
 	});	  
 	}).catch(error => {alert(error+" proportion violation")});    
 }
@@ -292,10 +300,10 @@ function distributionBySubsetViolation_(considered){
 			}]
 		},
 		options: {
-			legend: {display: false,labels: {fontColor: "black", fontStyle: "bold"}},
+			legend: {display: false,labels: {fontColor: "black", fontStyle: "bold", fontSize:size__}},
 			 scales: {
-	            yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
-	            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+	            yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold", fontSize:size__}}],
+	            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold", fontSize:size__}}]
             }
 		} 
 	});
@@ -321,10 +329,10 @@ function distributionviolations_(considered){
 				}]
 			},
 			options:{
-			   legend: {display: false,labels: {fontColor: "black", fontStyle: "bold"}},
+			   legend: {display: false,labels: {fontColor: "black", fontStyle: "bold", fontSize:size__}},
 			   scales: {
-		            yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
-		            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+		            yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold", fontSize:size__}}],
+		            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold", fontSize:size__}}]
 	            }				
 			}
 		});
@@ -349,10 +357,10 @@ function distributionByConstraints_(considered){
 				}]
 			},
 			options: {
-				legend: {display: false,labels: {fontColor: "black", fontStyle: "bold"}},
+				legend: {display: false,labels: {fontColor: "black", fontStyle: "bold", fontSize:size__}},
 				scales: {
-		            yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold"}}],
-		            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold"}}]
+		            yAxes: [{ticks: {beginAtZero: true, fontColor: "black", fontStyle: "bold", fontSize:size__}}],
+		            xAxes: [{ticks: {fontColor: "black", fontStyle: "bold", fontSize:size__}}]
             	}	
 			}
 		});	

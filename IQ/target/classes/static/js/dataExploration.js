@@ -31,22 +31,6 @@ function loadConstraints_for_exploration(){
 	}).catch(e => alert(e));
 }
 
-/*function loadViolations(vc){
-    var data = "{'constraints':"+vc+"}";
-    var param = {'method':'Post', 'body':data};
-    var url = adr+"exploration/tuple/violations/"
-    fetch(url, param).then(e => e.json()).then(e => {
-        var tuples_correlation_vio = document.getElementById("tuples_correlation_vio");
-        var res = ""
-        
-        //alert("vio: "+e) 
-
-        for(var i=0; i<e.length; i++)
-            res += '<div class="violation_style" onclick="showTups(\''+e[i].tups+'\', \''+e[i].cons+'\')">'+e[i].cons+'</div>'    
-        //});
-        tuples_correlation_vio.innerHTML = res;
-    }).catch(e => alert(e));
-}*/
 
 function getTuplesProportion(vc){
     var data = "{'constraints':"+vc+"}";
@@ -102,11 +86,12 @@ function display_tuple_number_vio(X, Y){
         },
         options: {
             legend: {
-                display: false,
-                labels: {
-                display: false,
-                fontStyle: "bold",
-                fontColor: "black"
+                    display: false,
+                    labels: {
+                    display: false,
+                    fontStyle: "bold",
+                    fontColor: "black",
+                    fontSize: size__
                 }
             },
             scales: {
@@ -114,7 +99,8 @@ function display_tuple_number_vio(X, Y){
                     ticks: {
                         beginAtZero: true,
                         fontStyle: "bold",
-                        fontColor: "black"
+                        fontColor: "black",
+                        fontSize: size__
                     },
                     type: 'logarithmic'
                 }],
@@ -122,7 +108,8 @@ function display_tuple_number_vio(X, Y){
                     ticks: {
                         display: false,
                         fontStyle: "bold",
-                        fontColor: "black"
+                        fontColor: "black",
+                        fontSize: size__
                     }
                 }]
             }
@@ -151,9 +138,10 @@ function display_tuple_proprtions_vio(X, Y){
             legend: {
                 display: false,
                 labels: {
-                display: false,
-                fontStyle: "bold",
-                fontColor: "black"
+                    display: false,
+                    fontStyle: "bold",
+                    fontColor: "black",
+                    fontSize: size__
                 }
             },
             scales: {
@@ -161,7 +149,8 @@ function display_tuple_proprtions_vio(X, Y){
                     ticks: {
                         beginAtZero: true,
                         fontStyle: "bold",
-                        fontColor: "black"
+                        fontColor: "black",
+                        fontSize: size__
                     },
                     type: 'logarithmic'
                 }],
@@ -169,7 +158,8 @@ function display_tuple_proprtions_vio(X, Y){
                     ticks: {
                         display: false,
                         fontColor: "black",
-                        fontStyle: "bold"
+                        fontStyle: "bold",
+                        fontSize: size__
                     }
                 }]
             }
@@ -181,6 +171,3 @@ function display_tuple_proprtions_vio(X, Y){
 function showTups(a, b){
     alert(a+'::'+b)
 }
-
-
-

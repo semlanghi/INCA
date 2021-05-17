@@ -82,7 +82,7 @@ function validQuery(){
     var measure = getMeasuresValue();
     var filter_value = document.getElementById("filter_value").value;
     var selectedConstraints = getSelectedConstraints_();
-    var content = '';
+    var content = '';     
 
     //alert(measure)
 
@@ -132,14 +132,14 @@ function validQuery(){
             }
         }
         if (filter_value && operator != 'NaN'){
-            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+", 'selectedConstraints':"+selectedConstraints+"}"; 
+            content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':["+measure+"], 'filterValue':"+filter_value+", 'selectedConstraints':"+selectedConstraints+"}"; 
             display_figs(content, measure);
         }else
             alert("The filter value most be for example: =4 or <4 or >4 or <=4 or >=4 with 4 the theshold");
     }
     if (operator=='all'){
-        content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':'"+measure+"', 'filterValue':"+filter_value+", 'selectedConstraints':"+selectedConstraints+"}"; 
-        display_figs(content, measure);
+        content = "{'query':'"+query+"', 'operator':'"+operator+"', 'measure':["+measure+"], 'filterValue':0, 'selectedConstraints':"+selectedConstraints+"}"; 
+        display_figs(content, measure); 
     }
 }
 
@@ -153,6 +153,13 @@ function display_figs(data, measure){
             //display_subsets(e.sub_vio.X, e.sub_vio.Y);
             //display_by_constraint(e.vio_dist.X, e.vio_dist.Y)
             //display_data(e.data)
+
+            /*(((((e.sub_vio).options).scales).yaxes).ticks).fontSize = size__;
+            (((((e.sub_vio).options).scales).xaxes).ticks).fontSize = size__;
+
+            (((((e.vio_dist).options).scales).yaxes).ticks).fontSize = size__;
+            (((((e.vio_dist).options).scales).xaxes).ticks).fontSize = size__;*/
+
 
             display_subsets(e.sub_vio);
             display_by_constraint(e.vio_dist);
@@ -251,14 +258,64 @@ function selectedQuery(){
 
 function generateInterval(){
     var min = document.getElementById("min");
-    var max = document.getElementById("max");
 
-    //test
-    min.innerText = "Min:: CBS: 10, CBM: 12"
-    max.innerText = "Max:: CBS: 10, CBM: 12"
+    var query = document.getElementById("query").value;
+    var measure = getMeasuresValue();
+    var filter_value = document.getElementById("filter_value").value;
+    var selectedConstraints = getSelectedConstraints_();
+    var content = '';
+	query = query.replaceAll("'", "\\'");
+	
+	var contentMax_ = "{'query':'"+query+"', 'operator':'top-k', 'measure':["+measure+"], 'filterValue':-1, 'selectedConstraints':"+selectedConstraints+"}"; 
+    var contentMin_ = "{'query':'"+query+"', 'operator':'top-k', 'measure':["+measure+"], 'filterValue':1, 'selectedConstraints':"+selectedConstraints+"}"; 
+    var url = adr+"query/execution/";
+    
+    var contentMax = {'method':'Post', 'body':contentMax_};
+    var contentMin = {'method':'Post', 'body':contentMin_};
 
+    fetch(url,contentMin).then(e =>e.json()).then(e => {
+		var maxi = {}
+		var mini = {} 
+		var d = e.data;
+		for(var i=0;i<d.length; i++){
+	        var data = d[i]
+	        var attrs = data["attrs"]
+	        var datas = data["data"]
+	        mini[attrs[attrs.length-1]] = datas[0][attrs.length-1];
+    	}
+    	fetch(url,contentMax).then(f => f.json()).then(f => {		
+			d = f.data;
+			for(var i=0;i<d.length; i++){
+		        var data = d[i]
+		        var attrs = data["attrs"]
+		        var datas = data["data"]
+		        maxi[attrs[attrs.length-1]] = datas[0][attrs.length-1];
+	    	}
+			Dis(maxi, mini, min);	    	    			
+    	}).catch(e => {alert(e+': Error in query')});
+    }).catch(e => {alert(e+': Error in query')});
 }
 
+
+function Dis(maxi, mini, comp) {
+	var res = '<table style="width: 100%">'
+	res += '<tr style="background: blue; color: white; padding:10em;">';
+	res += '<th></th>'
+	for (var key in maxi)
+   		res += '<th>'+key+'</th>';
+	res += '</tr>';
+	var resMin = "<tr style='color:green'> <th>Min</th>";
+	var resMax = "<tr style='color:red'> <th>Max</th>";
+	for (var key in maxi){
+   		resMax += '<th>'+maxi[key]+'</th>';
+   		resMin += '<th>'+mini[key]+'</th>';
+   	}
+	resMax += '</tr>';
+	resMin += '</tr>';
+	res += resMin + '\n' + resMax;	
+	res +="</table>"
+	comp.innerHTML = res;
+}
 
 
 

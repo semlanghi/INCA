@@ -13,7 +13,7 @@ function dragstart(e){
 function dragover(e){
 	if (e.preventDefault) e.preventDefault();
 	e.dataTransfer.dropEffect = 'copy'; 
-}
+} 
 
 function drop(e, ca){
 	if (e.stopPropagation) e.stopPropagation();
@@ -28,7 +28,8 @@ function drop(e, ca){
 	y.draggable="true";
 	y.addEventListener('dragstart', dragstart)
 	y.id = id;
-	y.style="display: inline-block; color:black; padding:0.5em; margin-top:0.5em;margin-left:0.5em;background: #ddd; border-radius: 5px; border: "+border+";";
+	y.style="font-size:1.5em;font-weight: bold;display: inline-block; color:black; padding:0.5em; margin-top:0.5em;margin-left:0.5em;background: #ddd; border-radius: 5px; border: "+border+";";
+	//y.class="size__1"
 	ca.appendChild(y);
 	e.preventDefault(); 
 }
@@ -98,7 +99,8 @@ function selectedSource_(){
 			y.draggable="true";
 			y.addEventListener('dragstart', dragstart)
 			y.id = e;
-			y.style="display: inline-block; color:black; padding:0.5em; margin-top:0.5em;margin-left:0.5em;background: #ddd; border-radius: 5px; border: 3px solid "+attributsToJson[e]+";";
+			y.style="font-size:1.5em;font-weight: bold;display: inline-block; color:black; padding:0.5em; margin-top:0.5em;margin-left:0.5em;background: #ddd; border-radius: 5px; border: 3px solid "+attributsToJson[e]+";";
+			y.class="size__1"
 			attributs.appendChild(y);
 		}
 	}
@@ -173,10 +175,10 @@ function exploration_by_constraint(){
 			var chart = new Chart(ctx, {
 				type: 'bar',
 				data: e,
-				options: {legend: {display: false,labels: {display: false, fontColor: "black", fontStyle: "bold"}},
+				options: {legend: {display: false,labels: {display: false, fontColor: "black", fontStyle: "bold", fontSize: size__}},
 					scales: {
-						xAxes: [{stacked: true, ticks: {display: false,fontColor: "black", fontStyle: "bold"}}],
-						yAxes: [{stacked: true, ticks: {beginAtZero: true,fontColor: "black", fontStyle: "bold"},type: 'logarithmic'}]
+						xAxes: [{stacked: true, ticks: {display: false,fontColor: "black", fontStyle: "bold", fontSize: size__}}],
+						yAxes: [{stacked: true, ticks: {display: false,beginAtZero: true,fontColor: "black", fontStyle: "bold", fontSize: size__},type: 'logarithmic'}]
 					}
 				}
 			});
