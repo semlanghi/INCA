@@ -16,8 +16,15 @@ The project is a maven project. One has to install maven, at least version 3.6.3
 Application is developed using springBoot in java (version 14.0.1), HTML, CSS and JavaScript. As mentioned above, it managed using maven.
 
 
-## TopInc
+## TopInc performance
 To perform top-k query processing, we use our developped algorithm called TopInc algorithm. Below, we show by intensive experiment the performance our topInc algorithm.
 
-The following figures show the performance running time of topInc
-![plot](https://github.com/oussissa123/INCA/blob/master/time_Q1.pdf)
+The following figures show the performance running time of topInc compared to baseline algorithm (compute all answers, sort them and choose the k first)
+![alt time running query Q1](https://github.com/oussissa123/INCA/blob/master/time_Q1.pdf)
+![alt time running query Q2](https://github.com/oussissa123/INCA/blob/master/time_Q2.pdf)
+![alt time running query Q8](https://github.com/oussissa123/INCA/blob/master/time_Q8.pdf)
+
+The following figures show the  foot print memory comparison of topInc with baseline algorithm
+![alt fp.memory query Q1](https://github.com/oussissa123/INCA/blob/master/memory_Q1.pdf)
+![alt fp.memory query Q2](https://github.com/oussissa123/INCA/blob/master/memory_Q2.pdf)
+![alt fp.memory query Q8](https://github.com/oussissa123/INCA/blob/master/memory_Q8.pdf)
