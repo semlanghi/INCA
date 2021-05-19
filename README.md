@@ -22,10 +22,10 @@ To perform top-k query processing, we use our developped algorithm called TopInc
 The following figures show the performance running time of topInc compared to baseline algorithm (compute all answers, sort them and choose the k first)
 
 ![alt time running query Q1](https://github.com/oussissa123/INCA/blob/master/time_Q1.pdf)\
-![alt time running query Q2](https://github.com/oussissa123/INCA/blob/master/time_Q2.pdf)
-![alt time running query Q8](https://github.com/oussissa123/INCA/blob/master/time_Q8.pdf)
+![alt time running query Q2](https://github.com/oussissa123/INCA/blob/master/time_Q2.pdf)\
+![alt time running query Q8](https://github.com/oussissa123/INCA/blob/master/time_Q8.pdf)\
 
-The following figures show the  foot print memory comparison of topInc with baseline algorithm \
-![alt fp.memory query Q1](https://github.com/oussissa123/INCA/blob/master/memory_Q1.pdf)
-![alt fp.memory query Q2](https://github.com/oussissa123/INCA/blob/master/memory_Q2.pdf)
-![alt fp.memory query Q8](https://github.com/oussissa123/INCA/blob/master/memory_Q8.pdf)
+The following figures show the  foot print memory comparison of topInc with baseline algorithm
+![alt fp.memory query Q1](https://github.com/oussissa123/INCA/blob/master/memory_Q1.pdf)\
+![alt fp.memory query Q2](https://github.com/oussissa123/INCA/blob/master/memory_Q2.pdf)\
+![alt fp.memory query Q8](https://github.com/oussissa123/INCA/blob/master/memory_Q8.pdf)\
