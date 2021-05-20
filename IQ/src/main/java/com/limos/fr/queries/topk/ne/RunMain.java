@@ -12,11 +12,19 @@ public static void main(String[] args) {
 //		Parameters param = Parameters.getInstance(query);
 //		param.run();
 //		System.out.println(param.getResults());
-//		System.out.println(1<<0);
+		System.out.println(1<<2);
 //		System.out.println(Config.loadMeanFunctions());
 		
+//		
+//		String val = "[{\"f\":\"Adult a1\",  \"w\":\"a1.Sex = 'Female' AND a1.Relationship = 'Husband'\", \"position\":0, \"id\":\"DC_1\", \"description\":\"\"}, {\"f\":\"Adult a1\",  \"w\":\"a1.Sex = 'Male' AND a1.Relationship = 'Wife'\", \"position\":1, \"id\":\"DC_2\", \"description\":\"\"}, {\"f\":\"Adult a1\",  \"w\":\"a1.Relationship = 'Not-in-family' AND a1.maritalstatus = 'Married-civ-spouse'\", \"position\":2, \"id\":\"DC_3\", \"description\":\"\"}]";
+//
+//		JSONArray ja = new JSONArray(val);
+//		
+//		System.out.println(ja.getJSONObject(0).get("f"));
+//		
 	}catch(Exception e) {e.printStackTrace();}
 }
+
 
 
 

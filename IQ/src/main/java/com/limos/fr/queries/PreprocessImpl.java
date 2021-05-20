@@ -18,7 +18,7 @@ public class PreprocessImpl implements PreprocessService{
 	public String doPreprocess(String param) throws Exception {
 			
 		JSONObject parametters = new JSONObject(param);
-		
+		 
 		String dbName = parametters.getString("dbname");
 		String dbType = parametters.getString("dbtype");
 		String dbHost = parametters.getString("dbhost");
@@ -27,12 +27,14 @@ public class PreprocessImpl implements PreprocessService{
 		String pass = parametters.getString("pass");
 		
 		Connection con = Config.getCon(dbType, dbHost, dbport, dbName, userName, pass);
+		
 		JSONArray constraints = parametters.getJSONArray("constraints");
 
+		System.out.println("============== "+constraints.length()+" ===================");
+		 
+		
 		JSONObject json = new JSONObject();
-		
 		con.setAutoCommit(false);
-		
 		try {
 			//
 			con.createStatement().executeUpdate(Config.loadMeanFunctions());
@@ -54,16 +56,15 @@ public class PreprocessImpl implements PreprocessService{
 				con.createStatement().executeUpdate("UPDATE "+tableName+" SET violation = 0");
 			}
 			res.close();			
-			
 			for(int i=0; i<constraints.length(); i++) {
-				String query = constraints.getString(i);
-				
+				String query = constraints.getString(i).replace("\n", "");
 				try {
 					String strs[] = query.split("( )*:( )*");
 					String from = strs[0];
 					String where = strs[1];
 					
-					String str = "INSERT INTO C.C(id, position, description, f, w) values ('DC_"+(i+1)+"', "+i+", '', '"+from+"', '"+where+"')";
+					String str = "INSERT INTO C.C(id, position, description, f, w) values ('DC_"+(i+1)+"', "+i+", '', '"+from+"', '"+where.replace("'", "''")+"')";
+					
 					con.createStatement().executeUpdate(str);
 					String rels [] = from.split("( )*,( )*"); 
 					List<String> tables = new ArrayList<String>();
@@ -77,15 +78,22 @@ public class PreprocessImpl implements PreprocessService{
 							tables.add(rr[0]+":"+rr[1]);
 							sel+=rr[1]+".ID_ID, ";
 						}
-					}
+					} 
 					sel = sel.substring(0, sel.length()-2);
 					ResultSet inconsistentTuples = con.createStatement().executeQuery("SELECT "+sel+" FROM "+ from+ ((where.equals(""))?"":" WHERE "+where));
+					
+//					System.out.println("===========================================");
+					
 					while(inconsistentTuples.next()) {
 						for(int j= 0; j<tables.size(); j++) {
 							String sql = "UPDATE "+tables.get(j).split(":")[0]+ " SET vioset = vioset | "+Config.position(i)+", violation = violation + 1 WHERE ID_ID="+inconsistentTuples.getLong(j+1);
+							
+//							System.out.println(sql);
+							
 							con.createStatement().executeUpdate(sql);
 						}
 					}
+					
 					inconsistentTuples.close();
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -94,10 +102,8 @@ public class PreprocessImpl implements PreprocessService{
 					return json.toString();
 				}
 				
-				
 			}
-			
-			
+			 
 			con.commit();
 			con.close();
 			json.put("result", "success");

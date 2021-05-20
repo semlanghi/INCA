@@ -72,7 +72,7 @@ var chart = new Chart(ctx, {
 	}
 	}   
 });	  
-}).catch(error => {alert(error)});    
+}).catch(error => {alert(error+" l'erreur est là ")});    
 }
 
 function distributionBySubsetViolation(){

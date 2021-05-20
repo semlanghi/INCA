@@ -18,7 +18,7 @@ import com.limos.fr.mod.Config;
 @Component
 public class ProfilingImp implements ProfilingService{
 
-	public static int size__ = 20 ; 
+	public static int size__ = 10 ; 
 	
 	public String getVioAndNoVio() throws Exception{
 		return byVio(-1);

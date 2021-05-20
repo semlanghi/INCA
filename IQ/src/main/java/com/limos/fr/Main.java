@@ -12,7 +12,7 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 	}   
 	 
-	
+	  
 	
 	static void test() throws Exception{
 		String query = "SELECT a1.A, a2.B FROM R1 a1, R2 a2 WHERE a1.B = a2.B +=20";

@@ -6,7 +6,6 @@
 body {
   overflow: hidden;
   color: black;
-  /*font-size: 1em;*/
 }
 
 #content{
@@ -27,20 +26,12 @@ height: 50em;
 }
 
 .size__1{
-  font-size:1.5em;
+  font-size:1em;
   font-weight: bold;
 }
-/*
-  
-*/
+
 .size__2{
-  font-size:1.5em;
+  font-size:1em;
   font-weight: bold;
   text-align: center;
 }
-
-/*
-
-fontSize: size__
-
-*/

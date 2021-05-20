@@ -17,7 +17,6 @@ height: 1000em;
 }
 
 .legend {
-  /*font-size: 1em ;*/
   font-weight: bold ;
   text-align: left ;
   width:inherit; 
@@ -114,6 +113,3 @@ background:white;
 .with_treshold{
   display: none;
 }
-
-
-

@@ -88,10 +88,11 @@ public class Config {
 	public static long position(int i) {
 		if (i<0)
 			return -1;
-		long res= 1;
-		for(int j=0; j<i; i++)
-			res*=2;
-		return res;
+//		long res= 1;
+//		for(int j=0; j<i; j++)
+//			res*=2;
+//		return res;
+		return 1<<i;
 	}
 	
 	public static  Map<Integer, String> getConstraintPos() throws Exception{

@@ -25,3 +25,4 @@ public interface ProfilingService {
 	public String profilingAttributs(String param) throws Exception;
 	public String getConstraintDetail(String param) throws Exception;
 }
+ 

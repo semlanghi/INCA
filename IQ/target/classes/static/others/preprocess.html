@@ -2,7 +2,7 @@
 
     <div>
         <label for="database_name_p" style="color: white;"> Database Name </label>
-        <input id="database_name_p" type="text" class="form-control" value="preprocess"></input>
+        <input id="database_name_p" type="text" class="form-control" value="Adul"></input>
     </div>
     <div>
         <label for="database_type_p" style="color: white;"> Database Type </label>
@@ -27,7 +27,11 @@
 
     <div>
         <label for="constraints" style="color: white;"> Constraints </label>
-        <textarea name="constraints" id="constraints" rows=5 style="width: 100%; font-family: system-ui; color: blue; font-size: 2em;"></textarea>
+        <textarea name="constraints" id="constraints" rows=5 style="width: 100%; font-family: system-ui; color: blue; font-size: 2em;">
+Adult a1: a1.Sex = 'Female' AND a1.Relationship = 'Husband';
+Adult a1: a1.Sex = 'Male' AND a1.Relationship = 'Wife';
+Adult a1: a1.Relationship = 'Not-in-family' AND a1.maritalstatus = 'Married-civ-spouse'
+        </textarea>
         
         <!--div style="margin: auto; width: 100px">
             <button class="btn" style="margin-top: 5px" onclick="load_constraint()">Load</button>	  
@@ -36,7 +40,7 @@
 
 
 	<div id="message" style="display:none"></div>
-	<div id="attente" style="display:none"><img src="/img/attente1.gif" height="50" width="50"/></div>
+	<div id="attente" style="display:none"><img src="/img/attente1.gif" height="50" width="100"/></div>
 
     
     <div style="margin: auto; width: 100px">

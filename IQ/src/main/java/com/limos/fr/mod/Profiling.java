@@ -23,8 +23,11 @@ public class Profiling {
 	@RequestMapping(value = "/percentVio", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public String getPercentVioAndNoVio() {
 		try {
-			return service.getVioAndNoVio();
+			String res = service.getVioAndNoVio();
+			System.out.println("vio and no vio: "+res);
+			return res;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DataLoadingError();
 		}
 	}
@@ -32,8 +35,11 @@ public class Profiling {
 	@RequestMapping(value = "/distributionviolations", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public String getdistributionViolation() {
 		try {
-			return service.distributionViolation();
+			String res = service.distributionViolation();
+			System.out.println(res);
+			return res;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DataLoadingError();
 		}
 	}
@@ -41,8 +47,11 @@ public class Profiling {
 	@RequestMapping(value = "/distributionviolationssubset", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public String distributionviolationssubset() {
 		try {
-			return service.distributionviolationssubset();
+			String res = service.distributionviolationssubset();
+			System.out.println(res);
+			return res;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DataLoadingError();
 		}
 	}            
@@ -50,7 +59,8 @@ public class Profiling {
 	@RequestMapping(value = "/distributionviolationsbyconstraint", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public String distributionviolationsbyconstraint() {
 		try {
-			return service.distributionviolationsbyconstraint(); 
+			String res = service.distributionviolationsbyconstraint();
+			return res; 
 		} catch (Exception e) {
 			throw new DataLoadingError();
 		}
@@ -59,8 +69,11 @@ public class Profiling {
 	@RequestMapping(value = "/getConstraints", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public String getConstraints() {
 		try {
-			return service.getConstraints();
+			String res = service.getConstraints();
+			System.out.println(res);
+			return res;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DataLoadingError();
 		}		
 	}

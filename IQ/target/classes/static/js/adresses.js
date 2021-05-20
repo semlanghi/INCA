@@ -2,4 +2,4 @@
 var adr = "http://localhost:8080/"
 var constraints;
 
-var size__ = 20;//25;
+var size__ = 10;//25;

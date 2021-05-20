@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION bit_count(setInt BIGINT) RETURNS INT AS
+CREATE OR REPLACE FUNCTION bit_count(setInt BIGINT) RETURNS INT AS 
 $$ 
 	DECLARE 
 		i int;
@@ -23,7 +23,7 @@ $$
 $$ LANGUAGE plpgsql;
 
 
-CREATE OR REPLACE FUNCTION min_card_set_func(setIntEnd BIGINT, setIntNew BIGINT) RETURNS BIGINT AS
+CREATE OR REPLACE FUNCTION min_card_set_func(setIntEnd BIGINT, setIntNew BIGINT) RETURNS BIGINT AS 
 $$ 
 	DECLARE 
 		i int;
@@ -69,7 +69,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE AGGREGATE min_card_set (bigint)(SFUNC = min_card_set_func, STYPE=bigint, initcond=-1);
 
 
-CREATE OR REPLACE FUNCTION min_card_set_multi_func(setIntEnd text, setIntNew text) RETURNS Text AS
+CREATE OR REPLACE FUNCTION min_card_set_multi_func(setIntEnd text, setIntNew text) RETURNS Text AS 
 $$ 
 	DECLARE 
 		t int;
@@ -101,7 +101,7 @@ $$
 	END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION min_card_set_multi_func_final(setInt text) RETURNS BIGINT AS
+CREATE OR REPLACE FUNCTION min_card_set_multi_func_final(setInt text) RETURNS BIGINT AS 
 $$ 
 	DECLARE 
 		t text;

@@ -37,8 +37,10 @@ function doPreprocess(){
 	
 	
 	var constrs = [];
+	var exp = /(\s|\t|\n)*;(\s|\t|\n)*/
+	var cstrs = (constraints+"").split(';');
 	
-	var cstrs = constraints.split('(\s|\t|\n)*;(\s|\t|\n)*');
+	//alert(cstrs.length)
 	
 	for(var i=0; i<cstrs.length; i++){
 		if (cstrs[i]!=''){
