@@ -3,15 +3,15 @@
 	font-weight: bold;
 }
 
-body {
+/*body {
   overflow: hidden;
   color: black;
-}
+}*/
 
-#content{
+/*#content{
 overflow-y:scroll;
-height: 50em;
-}
+height: auto;
+}*/
 
 
 .violation_style{

@@ -1,5 +1,5 @@
 <div class="container" style="padding: 1em">
-    <div class="row">		
+    <div class="row" >		
         <div class="col-md-6 col-sm-6 col-xs-12">
             <div class = "pad">
                 <div class="commun_text size__2">Proportion of Violations</div>
@@ -49,113 +49,15 @@
                 <span class="col-md-6 col-sm-6 col-xs-6 commun_text size__2">Filtering</span>
                 <button style="margin-top:0.5em;" onclick="do_filter()" class="btn btn-primary mb-2 commun_text">Do Filter</button>      
                 <div class="separator"></div>
-                <div class="container">
-                    <div class ="col-md-6 col-sm-6 col-xs-6">
-                          <input type="radio" id="huey" onchange="choose_filter()" name="filter" value="constraint" checked>
-                          <label for="huey" class="commun_text">Selected Constraints</label>
-                    </div>
-                    <div class = "col-md-6 col-sm-6 col-xs-6">
-                          <input type="radio" id="dewey" onchange="choose_filter()" name="filter" value="number">
-                          <label for="dewey" class="commun_text">Thresholding</label>
-                    </div>
-                </div>
-                
+
                 <div class="container">
                     <div class ="col-md-12 col-sm-12 col-xs-12" id="selectedConstraint">
                         <table id="constraint_description">
-                        
                         </table>
                     </div>
-                    
-                    <div class ="row" id="numberConstraints">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <label for="violation" class="commun_text">Threshold</label>
-                            <input type="number" id="violation" class="form-control"></input>
-                        </div>
-
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <input type="radio" id="eq" name="op" value="="></input>
-                                            <label for="eq">=</label>
-                                        </td>
-                                      <td>
-                                          <input type="radio" id="sup_eq" name="op" value=">="></input>
-                                            <label for="sup_eq">>=</label>
-                                        </td>
-                                        <td>
-                                        <input type="radio" id="inf_eq" name="op" value="<="></input>
-                                            <label for="inf_eq"><=</label>
-                                        </td>
-                                    </tr>
-                                
-                                    <tr>
-                                    <td>	  									  	
-                                          <input type="radio" id="all" name="op" value="all" checked></input>
-                                            <label for="all">all</label>
-                                    </td>
-                                      
-                                      <td>  	
-                                          <input type="radio" id="sup_" name="op" value=">"></input>
-                                            <label for="sup_">></label>
-                                       </td>
-                                       
-                                       <td> 	
-                                          <input type="radio" id="inf" name="op" value="<"></input>
-                                            <label for="inf"><</label>
-                                        </td>
-                                    <tr>
-                                </table>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                
-                
+                </div>      
             </div>
         </div>
     </div>
-    
-    <!--div class="row" style="margin-top: 0.8em;">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class = "pad">
-                <div style="font-size: 2em; margin-left: 10px;"> Violation Distribution By 2 Attributs</div>
-                <div class="separator"></div>
-          
-                <div class="row" style="padding: 0.5em;">
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <input class="form-control" type="text" placeholder="Relation Name" id="relation_name"> </input>
-                        <div style="width: 100px; margin: auto;"> <button class="btn btn-primary" onclick="load_attribut_relations()">Show Attributs</button> </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div id="Attributs_relation" style="background: #aaa; overflow-y:scroll; height:5em;"></div>
-                    </div>
-                </div>
-
-                <div class="row" style="padding: 0.5em;">
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <div style="width: 100px; margin: auto;"> Attribut 1</div>
-                        <div style="background: #aaa; overflow-y:scroll; height:3em;" id="attribute1">  </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <div style="width: 100px; margin: auto;"> Attribut 2</div>
-                        <div style="background: #aaa; overflow-y:scroll; height:3em;" id="attribute2"></div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <button class="btn btn-primary" onclick="show_figure()">Show Figure</button>
-                    </div>
-                </div>
-
-                <div class="row" style="padding: 0.5em;">
-                    <div id="attr1_attr2_">
-                        <canvas id="attr1_attr2"></canvas>
-                    </div>
-                </div>
-
-            </div>
-        </div>    
-    </div-->
                     
 </div>

@@ -27,7 +27,7 @@ var vio = resp["vio"] ;
 var novio = resp["novio"] ;
 
 var vio_ = vio+'';
-var novio_ = novio+'';
+var novio_ = novio+''; 
 
 var vio__ = ''
 var novio__ = ''
