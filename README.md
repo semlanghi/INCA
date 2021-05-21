@@ -31,9 +31,9 @@ The following figures show the  foot print memory comparison of topInc with base
 
 
 <p align="center">
-  <img src="https://github.com/oussissa123/INCA/blob/master/memory_Q1-1.png" width="290" alt="fp.memory query Q1">
-  <img src="https://github.com/oussissa123/INCA/blob/master/memory_Q2-1.png" width="290" alt="fp.memory query Q2">
-  <img src="https://github.com/oussissa123/INCA/blob/master/memory_Q8-1.png" width="290" alt="fp.memory query Q8">
+  <img src="https://github.com/oussissa123/INCA/blob/master/memory_Q1-1.png" width="250" alt="fp.memory query Q1">
+  <img src="https://github.com/oussissa123/INCA/blob/master/memory_Q2-1.png" width="250" alt="fp.memory query Q2">
+  <img src="https://github.com/oussissa123/INCA/blob/master/memory_Q8-1.png" width="250" alt="fp.memory query Q8">
 </p>
 
 
