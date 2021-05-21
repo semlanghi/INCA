@@ -22,9 +22,9 @@ To perform top-k query processing, we use our developped algorithm called TopInc
 The following figures show the performance running time of topInc compared to baseline algorithm (compute all answers, sort them and choose the k first.) Respectively for Q1, Q2 and Q8.
 
 <p align="center">
-  <img src="https://github.com/oussissa123/INCA/blob/master/time_Q1-1.png" width="290" alt="time running query Q1">
-  <img src="https://github.com/oussissa123/INCA/blob/master/time_Q2-1.png" width="290" alt="time running query Q2">
-  <img src="https://github.com/oussissa123/INCA/blob/master/time_Q8-1.png" width="290" alt="time running query Q8">
+  <img src="https://github.com/oussissa123/INCA/blob/master/time_Q1-1.png" width="250" alt="time running query Q1">
+  <img src="https://github.com/oussissa123/INCA/blob/master/time_Q2-1.png" width="250" alt="time running query Q2">
+  <img src="https://github.com/oussissa123/INCA/blob/master/time_Q8-1.png" width="250" alt="time running query Q8">
 </p>
 
 The following figures show the  foot print memory comparison of topInc with baseline algorithm (for Q1, Q2 and Q8 respectively)
