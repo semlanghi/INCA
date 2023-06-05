@@ -16,7 +16,7 @@ public class MostConsistentFirstMultiOccurence{
 	}
 		
 	public void algorithm() throws Exception {
-		param.loadLattices();
+		param.loadLattices2();
 			int i = 0;
 			while(param.results.size()<param.k){
 				effectiveJoin(new ArrayList<List<Long>>(param.lattices), new ArrayList<Long>(), 0, i);
@@ -53,19 +53,19 @@ public class MostConsistentFirstMultiOccurence{
 	
 	
 	private void doJoin(List<Long> list, String violation, int total) throws Exception {
-		String from = "";
+		StringBuilder from = new StringBuilder();
 		String where = param.predicate;
 		int remaind = param.k - param.results.size();
-		String inc = "";
+		StringBuilder inc = new StringBuilder();
 		
 		for (int i = 0; i<list.size(); i++) {
 			String rel = param.relations_names.get(i).split("_")[0];
 			String label = param.relations_names.get(i).split("_")[1];
 			
 			//inc += " AND "+label+".vioset="+list.get(i);
-			inc += " AND ("+ param.aliasVioset(label +".vioset", list.get(i))+")";
+			inc.append(" AND (").append(param.aliasVioset(label + ".vioset", list.get(i))).append(")");
 			
-			from += ", "+rel+" "+label;
+			from.append(", ").append(rel).append(" ").append(label);
 		}
 		String wh = "";
 		if ((where.replaceAll("( )*", "").replaceAll("(\n)*", "").replaceAll("(\t)*", "")).isEmpty())

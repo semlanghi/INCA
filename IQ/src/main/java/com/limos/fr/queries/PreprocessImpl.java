@@ -30,7 +30,7 @@ public class PreprocessImpl implements PreprocessService{
 		
 		JSONArray constraints = parametters.getJSONArray("constraints");
 
-		System.out.println("============== "+constraints.length()+" ===================");
+//		System.out.println("============== "+constraints.length()+" ===================");
 		 
 		
 		JSONObject json = new JSONObject();

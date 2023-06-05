@@ -545,7 +545,7 @@ public class ProfilingImp implements ProfilingService{
 		
 		Map<String, Double> alls = new HashMap<String, Double>();
 		JSONArray datas = new JSONArray();
-		Map<Integer, String> positions = Config.getConstraintPos();
+		Map<Long, String> positions = Config.getConstraintPos();
 		
 		for(String measure:newQueries.keySet()) {
 			String query_ = newQueries.get(measure);

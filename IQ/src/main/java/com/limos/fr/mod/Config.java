@@ -5,13 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 import org.json.JSONArray;
 
@@ -32,8 +26,25 @@ public class Config {
 
 	public static Connection getCon(String t, String h, String p, String dbn, String usrn, String pass) throws SQLException {
 		String param = "jdbc:"+t+"://"+h+":"+p+"/"+dbn+"?user="+usrn+"&password="+pass;
-		return DriverManager.getConnection(param);
+		if (con != null)
+			if (!con.isClosed())
+				con.close();
+		con = DriverManager.getConnection(param);
+		return con;
 	}
+
+	public static void setCon(Properties props) throws SQLException {
+		String dbName = props.getProperty("dbname");
+		String dbType = props.getProperty("dbtype");
+		String dbHost = props.getProperty("dbhost");
+		String dbport = props.getProperty("dbport");
+		String userName = props.getProperty("username");
+		String pass = props.getProperty("pass");
+
+		getCon(dbType, dbHost, dbport, dbName, userName, pass);
+	}
+
+
 	
 	public static Connection getCon() throws SQLException {
 		return con;
@@ -44,9 +55,9 @@ public class Config {
 	}
 	
 	
-	public static String getSet(Long key, Map<Integer, String> constraints) {
+	public static String getSet(Long key, Map<Long, String> constraints) {
 		Set<String> set = new HashSet<String>();
-		for(Integer p:constraints.keySet()) {
+		for(Long p:constraints.keySet()) {
 			if (((key>>p)&1)!=0)
 				set.add(constraints.get(p));
 		}
@@ -95,16 +106,27 @@ public class Config {
 		return 1<<i;
 	}
 	
-	public static  Map<Integer, String> getConstraintPos() throws Exception{
+	public static  Map<Long, String> getConstraintPos() throws Exception{
 		String query = "SELECT * FROM c.c;";
 		ResultSet r = Config.con.createStatement().executeQuery(query);
+		Map<Long, String> cst = new HashMap<>();
+		while(r.next())
+			cst.put(r.getLong("position"), r.getString("id"));
+		r.close();
+		return cst;  
+	}
+
+	public static  Map<Integer, String> getConstraintPos2(String param) throws Exception{
+		String query = "SELECT * FROM c.c;";
+		ResultSet r = DriverManager.getConnection(param).createStatement().executeQuery(query);
 		Map<Integer, String> cst = new HashMap<Integer, String>();
 		while(r.next())
 			cst.put(r.getInt("position"), r.getString("id"));
 		r.close();
-		return cst;  
+		return cst;
 	}
-	
+
+
 	public static String loadMeanFunctions() {
 		String req = "";
 		  InputStream is = Config.class.getClassLoader().getResourceAsStream("functions.sql");

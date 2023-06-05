@@ -91,6 +91,27 @@ public class Parameters {
 		}
 		dcs = dc;
 	}
+
+	protected void loadLattices2() throws SQLException {
+		long dc  = 0;
+		for (int i=0; i<relations_names.size(); i++) {
+			String relation = relations_names.get(i);
+			String query = "SELECT distinct vioset FROM "+relation.split("_")[0];
+			ResultSet res = Config.getCon().createStatement().executeQuery(query);
+			List<Long> v = new ArrayList<Long>();
+			while(res.next()) {
+				long l = res.getLong(1)&valableConstraints;
+				v.add(l);
+				if (!correspondantConstraints.containsKey(l))
+					correspondantConstraints.put(l, new HashSet<Long>());
+				correspondantConstraints.get(l).add(res.getLong(1));
+				dc = dc | l;
+			}
+			res.close();
+			lattices.add(v);
+		}
+		dcs = dc;
+	}
 	
 	public static Parameters getInstance() {
 		Parameters p = new Parameters();

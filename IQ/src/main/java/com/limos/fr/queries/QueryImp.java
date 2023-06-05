@@ -45,7 +45,7 @@ public class QueryImp implements QueryService{
 		Map<String, Map<Long, Double>> resSubVio = new HashMap<String, Map<Long, Double>>();
 		Map<String, Double> alls = new HashMap<String, Double>();
 		JSONArray datas = new JSONArray();
-		Map<Integer, String> positions = Config.getConstraintPos();
+		Map<Long, String> positions = Config.getConstraintPos();
 		
 		for(int i = 0; i<measures.length(); i++) {
 			String measure = measures.getString(i);
@@ -192,14 +192,14 @@ public class QueryImp implements QueryService{
 		return res;
 	}
 
-	private String longToString(String value, Map<Integer, String> positions) {
+	private String longToString(String value, Map<Long, String> positions) {
 		String [] vals = value.split("#");
 		String res = "";
 		Map<String, Integer> values = new HashMap<String, Integer>();
 		
 		for (String str:vals){
 			long l = Long.parseLong(str);
-			for(int k:positions.keySet()) {
+			for(long k:positions.keySet()) {
 				if (((1<<k)&l)!=0) {
 					if (!values.containsKey(positions.get(k)))
 						values.put(positions.get(k), 0);
@@ -218,7 +218,7 @@ public class QueryImp implements QueryService{
 		return res;
 	} 
 	
-	private JSONObject generateJson(List<List<String>> iResult, Map<Integer, String> positions, String measure) {
+	private JSONObject generateJson(List<List<String>> iResult, Map<Long, String> positions, String measure) {
 		JSONObject ds = new JSONObject();
 		JSONArray attrs = new JSONArray();
 		JSONArray data = new JSONArray();
